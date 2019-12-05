@@ -2,50 +2,50 @@ module.exports =
 
 [{
 	name: "web",
-	repo: "https://github.com/kingzevin/web.git",
-	version: "master"
+	repo: "https://github.com/sharelatex/web-sharelatex.git",
+	version: "fdeddd22"
 }, {
 	name: "real-time",
-	repo: "https://github.com/kingzevin/real-time.git",
-	version: "master"
+	repo: "https://github.com/sharelatex/real-time-sharelatex.git",
+	version: "2060a2fdc5c6badfa92a717a6ff35dfe91ad9f20"
 }, {
 	name: "document-updater",
-	repo: "https://github.com/kingzevin/document-updater.git",
-	version: "master"
-// }, {
-// 	name: "clsi",
-// 	repo: "https://github.com/kingzevin/clsi.git",
-// 	version: "master"
+	repo: "https://github.com/sharelatex/document-updater-sharelatex.git",
+	version: "0c3d8ca80b526fa13911e49372be396f6669396d"
+}, {
+	name: "clsi",
+	repo: "https://github.com/sharelatex/clsi-sharelatex.git",
+	version: "a62ff6e248d624c5ad78dbf08bb4613b043abdc2"
 }, {
 	name: "filestore",
-	repo: "https://github.com/kingzevin/filestore.git",
-	version: "master"
+	repo: "https://github.com/sharelatex/filestore-sharelatex.git",
+	version: "43b8a9093b8d1d394bbd6111ac19221faef5e05c"
 }, {
 	name: "track-changes",
-	repo: "https://github.com/kingzevin/track-changes.git",
-	version: "master"
+	repo: "https://github.com/sharelatex/track-changes-sharelatex.git",
+	version: "5e3e5e6cb7f94a205f5848e1b84a22c3e2778dce"
 }, {
 	name: "docstore",
-	repo: "https://github.com/kingzevin/docstore.git",
-	version: "master"
+	repo: "https://github.com/sharelatex/docstore-sharelatex.git",
+	version: "897e7b044a923de1cc584179d493974e81f19108"
 }, {
 	name: "chat",
-	repo: "https://github.com/kingzevin/chat.git",
-	version: "master"
+	repo: "https://github.com/sharelatex/chat-sharelatex.git",
+	version: "6b8c6ef44ffa086c2183f067790e60a272b3a004"
 }, {
 	name: "tags",
-	repo: "https://github.com/kingzevin/tags.git",
-	version: "master"
+	repo: "https://github.com/sharelatex/tags-sharelatex.git",
+	version: "9b954d"
 }, {
 	name: "spelling",
-	repo: "https://github.com/kingzevin/spelling.git",
-	version: "master"
+	repo: "https://github.com/sharelatex/spelling-sharelatex.git",
+	version: "fcd8043"
 }, {
 	name: "contacts",
-	repo: "https://github.com/kingzevin/contacts.git",
-	version: "sk-update-mongojs"
+	repo: "https://github.com/sharelatex/contacts-sharelatex.git",
+	version: "2a41cc7ea4c"
 }, {
         name: "notifications",
-        repo: "https://github.com/kingzevin/notifications.git",
-        version: "master"
+        repo: "https://github.com/sharelatex/notifications-sharelatex.git",
+        version: "c6cca1731e0e21bfe7f29647788d9af9f8f6a24f"
 }]

@@ -16,7 +16,7 @@ ENV SHARELATEX_CONFIG /etc/sharelatex/settings.coffee
 
 # Checkout Overleaf Community Edition repo
 # ----------------------------------------
-RUN git clone https://github.com/overleaf/overleaf.git \
+RUN git clone https://github.com/kingzevin/overleaf.git \
 	--depth 1 /var/www/sharelatex
 
 
@@ -36,7 +36,6 @@ ADD ${baseDir}/services.js /var/www/sharelatex/config/services.js
 
 ADD ${baseDir}/real-time /var/www/sharelatex/real-time
 ADD ${baseDir}/document-updater /var/www/sharelatex/document-updater
-ADD ${baseDir}/clsi /var/www/sharelatex/clsi
 ADD ${baseDir}/filestore /var/www/sharelatex/filestore
 ADD ${baseDir}/track-changes /var/www/sharelatex/track-changes
 ADD ${baseDir}/web /var/www/sharelatex/web
@@ -46,6 +45,7 @@ ADD ${baseDir}/tags /var/www/sharelatex/tags
 ADD ${baseDir}/spelling /var/www/sharelatex/spelling
 ADD ${baseDir}/contacts /var/www/sharelatex/contacts
 ADD ${baseDir}/notifications /var/www/sharelatex/notifications
+# ADD ${baseDir}/clsi /var/www/sharelatex/clsi
 
 
 # Checkout services

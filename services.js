@@ -12,10 +12,10 @@ module.exports =
 	name: "document-updater",
 	repo: "https://github.com/sharelatex/document-updater-sharelatex.git",
 	version: "master"
-}, {
-	name: "clsi",
-	repo: "https://github.com/sharelatex/clsi-sharelatex.git",
-	version: "master"
+// }, {
+// 	name: "clsi",
+// 	repo: "https://github.com/sharelatex/clsi-sharelatex.git",
+// 	version: "master"
 }, {
 	name: "filestore",
 	repo: "https://github.com/sharelatex/filestore-sharelatex.git",

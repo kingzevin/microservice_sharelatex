@@ -1,5 +1,6 @@
 # ---------------------------------------------
 # Overleaf Community Edition (overleaf/overleaf)
+# zevin version
 # ---------------------------------------------
 
 FROM sharelatex/sharelatex-base:latest
@@ -30,6 +31,21 @@ RUN cd /var/www && npm install
 # services in Overleaf Community Edition
 # --------------------------------------------------------------
 ADD ${baseDir}/services.js /var/www/sharelatex/config/services.js
+
+# zevin: copy services
+
+ADD ${baseDir}/real-time /var/www/sharelatex/real-time
+ADD ${baseDir}/document-updater /var/www/sharelatex/document-updater
+ADD ${baseDir}/clsi /var/www/sharelatex/clsi
+ADD ${baseDir}/filestore /var/www/sharelatex/filestore
+ADD ${baseDir}/track-changes /var/www/sharelatex/track-changes
+ADD ${baseDir}/web /var/www/sharelatex/web
+ADD ${baseDir}/docstore /var/www/sharelatex/docstore
+ADD ${baseDir}/chat /var/www/sharelatex/chat
+ADD ${baseDir}/tags /var/www/sharelatex/tags
+ADD ${baseDir}/spelling /var/www/sharelatex/spelling
+ADD ${baseDir}/contacts /var/www/sharelatex/contacts
+ADD ${baseDir}/notifications /var/www/sharelatex/notifications
 
 
 # Checkout services

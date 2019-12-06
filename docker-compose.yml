@@ -17,6 +17,7 @@ services:
         links:
             - mongo
             - redis
+            - clsi
         volumes:
             - ~/vol/sharelatex_data:/var/lib/sharelatex
             - /var/run/docker.sock:/var/run/docker.sock
@@ -58,6 +59,7 @@ services:
         links:
             - mongo
             - redis
+            - sharelatex
         volumes:
             - ~/vol/clsi_data:/var/lib/sharelatex
         environment:

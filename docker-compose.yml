@@ -59,7 +59,6 @@ services:
         links:
             - mongo
             - redis
-            - sharelatex
         volumes:
             - ~/vol/clsi_data:/var/lib/sharelatex
         environment:

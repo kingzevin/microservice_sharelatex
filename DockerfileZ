@@ -95,7 +95,7 @@ ADD ${baseDir}/services.js /var/www/sharelatex/config/services.js
 # # ---------------------------------------------
 # RUN cd /var/www && node git-revision > revisions.txt
 
-RUN cd /etc/service/ && rm -rf clsi-sharelatex
+# RUN cd /etc/service/ && rm -rf clsi-sharelatex
 
 EXPOSE 80
 

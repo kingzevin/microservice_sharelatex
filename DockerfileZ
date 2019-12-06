@@ -96,7 +96,7 @@ ADD ${baseDir}/services.js /var/www/sharelatex/config/services.js
 # RUN cd /var/www && node git-revision > revisions.txt
 
 RUN cd /etc/service/ && rm -rf clsi-sharelatex
-RUN cd /etc/container_environment/ && echo 172.17.0.2 > CLSI_HOST
+# RUN cd /etc/container_environment/ && echo 172.17.0.2 > CLSI_HOST
 
 EXPOSE 80
 

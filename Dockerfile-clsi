@@ -71,7 +71,8 @@ RUN	chown -R www-data:www-data /var/www/sharelatex;
 
 # Copy runit service startup scripts to its location
 # --------------------------------------------------
-ADD ${baseDir}/runit /etc/service
+RUN cd /etc/service && rm -rf chat-sharelatex      document-updater-sharelatex  spelling-sharelatex clsi-sharelatex filestore-sharelatex contacts-sharelatex tags-sharelatex notifications-sharelatex     track-changes-sharelatex docstore-sharelatex  real-time-sharelatex         web-sharelatex
+ADD ${baseDir}/runit-clsi /etc/service
 
 
 # Configure nginx

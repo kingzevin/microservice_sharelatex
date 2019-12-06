@@ -7,10 +7,11 @@ FROM sharelatex/sharelatex:2.0.1
 
 ENV baseDir .
 
+RUN apt-get update -y htop tree zsh
 # Install app settings files
 # --------------------------
-ADD ${baseDir}/settings.coffee /etc/sharelatex/settings.coffee
-ENV SHARELATEX_CONFIG /etc/sharelatex/settings.coffee
+# ADD ${baseDir}/settings.coffee /etc/sharelatex/settings.coffee
+# ENV SHARELATEX_CONFIG /etc/sharelatex/settings.coffee
 
 
 # Checkout Overleaf Community Edition repo

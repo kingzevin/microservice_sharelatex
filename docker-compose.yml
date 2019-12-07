@@ -11,6 +11,8 @@ services:
                 condition: service_started
             clsi:
                 condition: service_started
+            filestore:
+                condition: service_started
         privileged: true
         ports:
             - 80:80
@@ -18,6 +20,7 @@ services:
             - mongo
             - redis
             - clsi
+            - filestore
         volumes:
             - ~/vol/sharelatex_data:/var/lib/sharelatex
             - /var/run/docker.sock:/var/run/docker.sock
@@ -56,8 +59,6 @@ services:
         privileged: true
         ports:
             - 3013:3013
-        expose: 
-            - 3013
         links:
             - mongo
             - redis
@@ -74,8 +75,40 @@ services:
             REDIS_HOST: redis
             CLSI_HOST: clsi
             LISTEN_ADDRESS: clsi
+            FILESTORE_HOST: sharelatex
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+            ENABLE_CONVERSIONS: 'true'
 
+    filestore:
+        restart: always
+        image: zevin/clsi
+        container_name: clsi
+        depends_on:
+          mongo:
+              condition: service_healthy
+          redis:
+              condition: service_started
+        privileged: true
+        ports:
+            - 3009:3009
+        links:
+            - mongo
+            - redis
+        volumes:
+            - ~/vol/clsi_data:/var/lib/sharelatex
+        environment:
+            SHARELATEX_APP_NAME: Overleaf Community Edition
+          
+            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+          
+            # Same property, unfortunately with different names in
+            # different locations
+            SHARELATEX_REDIS_HOST: redis
+            REDIS_HOST: redis
+            CLSI_HOST: clsi
+            LISTEN_ADDRESS: filestore
+            FILESTORE_HOST: filestore
+            ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
 
 

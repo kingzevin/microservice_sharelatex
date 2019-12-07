@@ -67,7 +67,7 @@ RUN bash -c 'cd /var/www/sharelatex && source ./bin/compile-services'
 
 # # Change application ownership to www-data
 # # ----------------------------------------
-RUN	chown -R www-data:www-data /var/www/sharelatex;
+# RUN	chown -R www-data:www-data /var/www/sharelatex;
 
 
 # Copy runit service startup scripts to its location

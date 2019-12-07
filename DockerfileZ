@@ -52,11 +52,11 @@ ADD ${baseDir}/services.js /var/www/sharelatex/config/services.js
 # RUN cd /var/www/sharelatex && \
 	# npm install && grunt install;
 
-
+COPY ${baseDir}/sharelatex/web/app/src/Features/Compile/ClsiManager.js /var/www/sharelatex/web/app/src/Features/Compile/
 # # install and compile services
 # # ----------------------------
-# RUN bash -c 'cd /var/www/sharelatex && source ./bin/install-services'
-# RUN bash -c 'cd /var/www/sharelatex && source ./bin/compile-services'
+RUN bash -c 'cd /var/www/sharelatex && source ./bin/install-services'
+RUN bash -c 'cd /var/www/sharelatex && source ./bin/compile-services'
 
 
 # # Links CLSI sycntex to its default location
@@ -67,7 +67,7 @@ ADD ${baseDir}/services.js /var/www/sharelatex/config/services.js
 
 # # Change application ownership to www-data
 # # ----------------------------------------
-# RUN	chown -R www-data:www-data /var/www/sharelatex;
+RUN	chown -R www-data:www-data /var/www/sharelatex;
 
 
 # Copy runit service startup scripts to its location
@@ -94,7 +94,7 @@ ADD ${baseDir}/services.js /var/www/sharelatex/config/services.js
 
 # # Stores the version installed for each service
 # # ---------------------------------------------
-# RUN cd /var/www && node git-revision > revisions.txt
+RUN cd /var/www && node git-revision > revisions.txt
 
 RUN cd /etc/service/ && rm -rf clsi-sharelatex
 

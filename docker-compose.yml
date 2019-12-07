@@ -34,7 +34,7 @@ services:
             SHARELATEX_REDIS_HOST: redis
             REDIS_HOST: redis
             CLSI_HOST: clsi
-
+            FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
 
             # Enables Thumbnail generation using ImageMagick
@@ -75,7 +75,7 @@ services:
             REDIS_HOST: redis
             CLSI_HOST: clsi
             LISTEN_ADDRESS: clsi
-            FILESTORE_HOST: sharelatex
+            FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
 

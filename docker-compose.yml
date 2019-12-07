@@ -73,7 +73,7 @@ services:
             SHARELATEX_REDIS_HOST: redis
             REDIS_HOST: redis
             CLSI_HOST: clsi
-
+            LISTEN_ADDRESS: clsi
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
 
             ENABLE_CONVERSIONS: 'true'

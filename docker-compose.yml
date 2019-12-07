@@ -81,13 +81,15 @@ services:
 
     filestore:
         restart: always
-        image: zevin/clsi
-        container_name: clsi
+        image: zevin/filestore
+        container_name: filestore
         depends_on:
           mongo:
               condition: service_healthy
           redis:
               condition: service_started
+          clsi:
+                condition: service_started
         privileged: true
         ports:
             - 3009:3009
@@ -95,7 +97,7 @@ services:
             - mongo
             - redis
         volumes:
-            - ~/vol/clsi_data:/var/lib/sharelatex
+            - ~/vol/filestore_data:/var/lib/sharelatex
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
           

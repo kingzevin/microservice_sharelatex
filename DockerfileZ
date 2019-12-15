@@ -29,7 +29,7 @@ RUN apt-get install -y htop tree zsh
 # Replace overleaf/config/services.js with the list of available 
 # services in Overleaf Community Edition
 # --------------------------------------------------------------
-ADD ${baseDir}/services.js /var/www/sharelatex/config/services.js
+# ADD ${baseDir}/services.js /var/www/sharelatex/config/services.js
 
 # zevin: copy services
 
@@ -97,6 +97,8 @@ RUN	chown -R www-data:www-data /var/www/sharelatex;
 RUN cd /var/www && node git-revision > revisions.txt
 
 RUN cd /etc/service/ && rm -rf clsi-sharelatex filestore-sharelatex docstore-sharelatex
+
+ADD ${baseDir}/services.js /var/www/sharelatex/config/services.js
 
 EXPOSE 80
 

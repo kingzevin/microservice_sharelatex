@@ -28,7 +28,7 @@ ENV baseDir .
 # Replace overleaf/config/services-clsi.js with the list of available 
 # services in Overleaf Community Edition
 # --------------------------------------------------------------
-ADD ${baseDir}/services-clsi.js /var/www/sharelatex/config/services.js
+ADD ${baseDir}/services-chat.js /var/www/sharelatex/config/services.js
 
 # zevin: copy services
 

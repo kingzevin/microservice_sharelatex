@@ -17,6 +17,8 @@ services:
                 condition: service_started
             chat:
                 condition: service_started
+            spelling:
+                condition: service_started
         privileged: true
         ports:
             - 80:80
@@ -27,6 +29,7 @@ services:
             - chat
             - docstore
             - filestore
+            - spelling
         volumes:
             - ~/vol/sharelatex_data:/var/lib/sharelatex
             - /var/run/docker.sock:/var/run/docker.sock
@@ -193,6 +196,42 @@ services:
             FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
+
+    spelling:
+        restart: always
+        image: zevin/spelling
+        container_name: spelling
+        depends_on:
+          mongo:
+              condition: service_healthy
+          redis:
+              condition: service_started
+        privileged: true
+        ports:
+            - 3005:3005
+        links:
+            - mongo
+            - redis
+        volumes:
+            - ~/vol/spelling_data:/var/lib/sharelatex
+        environment:
+            SHARELATEX_APP_NAME: Overleaf Community Edition
+          
+            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+          
+            # Same property, unfortunately with different names in
+            # different locations
+            SHARELATEX_REDIS_HOST: redis
+            REDIS_HOST: redis
+            CLSI_HOST: clsi
+            CHAT_HOST: chat
+            DOCSTORE_HOST: docstore
+            WEB_HOST: sharelatex
+            LISTEN_ADDRESS: spelling
+            FILESTORE_HOST: filestore
+            ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+            ENABLE_CONVERSIONS: 'true'
+
 
 
     mongo:

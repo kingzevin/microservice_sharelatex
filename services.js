@@ -17,10 +17,6 @@ module.exports =
 	repo: "https://github.com/sharelatex/track-changes-sharelatex.git",
 	version: "5e3e5e6cb7f94a205f5848e1b84a22c3e2778dce"
 }, {
-	name: "docstore",
-	repo: "https://github.com/sharelatex/docstore-sharelatex.git",
-	version: "897e7b044a923de1cc584179d493974e81f19108"
-}, {
 	name: "chat",
 	repo: "https://github.com/sharelatex/chat-sharelatex.git",
 	version: "6b8c6ef44ffa086c2183f067790e60a272b3a004"

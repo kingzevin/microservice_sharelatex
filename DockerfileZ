@@ -96,7 +96,7 @@ RUN	chown -R www-data:www-data /var/www/sharelatex;
 # # ---------------------------------------------
 RUN cd /var/www && node git-revision > revisions.txt
 
-RUN cd /etc/service/ && rm -rf clsi-sharelatex filestore-sharelatex
+RUN cd /etc/service/ && rm -rf clsi-sharelatex filestore-sharelatex docstore-sharelatex
 
 EXPOSE 80
 

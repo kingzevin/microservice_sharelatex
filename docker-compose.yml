@@ -15,6 +15,8 @@ services:
                 condition: service_started
             docstore:
                 condition: service_started
+            chat:
+                condition: service_started
         privileged: true
         ports:
             - 80:80
@@ -22,6 +24,8 @@ services:
             - mongo
             - redis
             - clsi
+            - chat
+            - docstore
             - filestore
         volumes:
             - ~/vol/sharelatex_data:/var/lib/sharelatex
@@ -36,6 +40,7 @@ services:
             SHARELATEX_REDIS_HOST: redis
             REDIS_HOST: redis
             CLSI_HOST: clsi
+            CHAT_HOST: chat
             DOCSTORE_HOST: docstore
             FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
@@ -77,6 +82,7 @@ services:
             SHARELATEX_REDIS_HOST: redis
             REDIS_HOST: redis
             CLSI_HOST: clsi
+            CHAT_HOST: chat
             DOCSTORE_HOST: docstore
             LISTEN_ADDRESS: clsi
             FILESTORE_HOST: filestore
@@ -112,6 +118,7 @@ services:
             SHARELATEX_REDIS_HOST: redis
             REDIS_HOST: redis
             CLSI_HOST: clsi
+            CHAT_HOST: chat
             DOCSTORE_HOST: docstore
             LISTEN_ADDRESS: filestore
             FILESTORE_HOST: filestore
@@ -145,11 +152,48 @@ services:
             SHARELATEX_REDIS_HOST: redis
             REDIS_HOST: redis
             CLSI_HOST: clsi
+            CHAT_HOST: chat
             DOCSTORE_HOST: docstore
             LISTEN_ADDRESS: docstore
             FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
+
+   chat:
+        restart: always
+        image: zevin/chat
+        container_name: chat
+        depends_on:
+          mongo:
+              condition: service_healthy
+          redis:
+              condition: service_started
+        privileged: true
+        ports:
+            - 3010:3010
+        links:
+            - mongo
+            - redis
+        volumes:
+            - ~/vol/chat_data:/var/lib/sharelatex
+        environment:
+            SHARELATEX_APP_NAME: Overleaf Community Edition
+          
+            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+          
+            # Same property, unfortunately with different names in
+            # different locations
+            SHARELATEX_REDIS_HOST: redis
+            REDIS_HOST: redis
+            CLSI_HOST: clsi
+            CHAT_HOST: chat
+            DOCSTORE_HOST: docstore
+            WEB_HOST: sharelatex
+            LISTEN_ADDRESS: chat
+            FILESTORE_HOST: filestore
+            ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+            ENABLE_CONVERSIONS: 'true'
+
 
     mongo:
         restart: always

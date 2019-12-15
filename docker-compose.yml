@@ -45,6 +45,7 @@ services:
             CLSI_HOST: clsi
             CHAT_HOST: chat
             DOCSTORE_HOST: docstore
+            SPELLING_HOST: spelling
             FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
 
@@ -86,6 +87,7 @@ services:
             REDIS_HOST: redis
             CLSI_HOST: clsi
             CHAT_HOST: chat
+            SPELLING_HOST: spelling
             DOCSTORE_HOST: docstore
             LISTEN_ADDRESS: clsi
             FILESTORE_HOST: filestore
@@ -123,6 +125,7 @@ services:
             CLSI_HOST: clsi
             CHAT_HOST: chat
             DOCSTORE_HOST: docstore
+            SPELLING_HOST: spelling
             LISTEN_ADDRESS: filestore
             FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
@@ -155,6 +158,7 @@ services:
             SHARELATEX_REDIS_HOST: redis
             REDIS_HOST: redis
             CLSI_HOST: clsi
+            SPELLING_HOST: spelling
             CHAT_HOST: chat
             DOCSTORE_HOST: docstore
             LISTEN_ADDRESS: docstore
@@ -189,6 +193,7 @@ services:
             SHARELATEX_REDIS_HOST: redis
             REDIS_HOST: redis
             CLSI_HOST: clsi
+            SPELLING_HOST: spelling
             CHAT_HOST: chat
             DOCSTORE_HOST: docstore
             WEB_HOST: sharelatex
@@ -226,6 +231,7 @@ services:
             CLSI_HOST: clsi
             CHAT_HOST: chat
             DOCSTORE_HOST: docstore
+            SPELLING_HOST: spelling
             WEB_HOST: sharelatex
             LISTEN_ADDRESS: spelling
             FILESTORE_HOST: filestore

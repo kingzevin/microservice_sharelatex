@@ -52,11 +52,11 @@ RUN apt-get install -y htop tree zsh
 # RUN cd /var/www/sharelatex && \
 	# npm install && grunt install;
 
-COPY ${baseDir}/sharelatex/web/app/src/Features/Compile/ClsiManager.js /var/www/sharelatex/web/app/src/Features/Compile/
-# # install and compile services
-# # ----------------------------
-RUN bash -c 'cd /var/www/sharelatex && source ./bin/install-services'
-RUN bash -c 'cd /var/www/sharelatex && source ./bin/compile-services'
+# COPY ${baseDir}/sharelatex/web/app/src/Features/Compile/ClsiManager.js /var/www/sharelatex/web/app/src/Features/Compile/
+# # # install and compile services
+# # # ----------------------------
+# RUN bash -c 'cd /var/www/sharelatex && source ./bin/install-services'
+# RUN bash -c 'cd /var/www/sharelatex && source ./bin/compile-services'
 
 
 # # Links CLSI sycntex to its default location

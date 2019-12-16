@@ -19,6 +19,8 @@ services:
                 condition: service_started
             spelling:
                 condition: service_started
+            tags:
+                condition: service_started
         privileged: true
         ports:
             - 80:80
@@ -30,6 +32,7 @@ services:
             - docstore
             - filestore
             - spelling
+            - tags
         volumes:
             - ~/vol/sharelatex_data:/var/lib/sharelatex
             - /var/run/docker.sock:/var/run/docker.sock
@@ -42,6 +45,7 @@ services:
             # different locations
             SHARELATEX_REDIS_HOST: redis
             REDIS_HOST: redis
+            TAGS_HOST: tags
             CLSI_HOST: clsi
             CHAT_HOST: chat
             DOCSTORE_HOST: docstore
@@ -86,6 +90,7 @@ services:
             SHARELATEX_REDIS_HOST: redis
             REDIS_HOST: redis
             CLSI_HOST: clsi
+            TAGS_HOST: tags
             CHAT_HOST: chat
             SPELLING_HOST: spelling
             DOCSTORE_HOST: docstore
@@ -122,6 +127,7 @@ services:
             # different locations
             SHARELATEX_REDIS_HOST: redis
             REDIS_HOST: redis
+            TAGS_HOST: tags
             CLSI_HOST: clsi
             CHAT_HOST: chat
             DOCSTORE_HOST: docstore
@@ -159,6 +165,7 @@ services:
             REDIS_HOST: redis
             CLSI_HOST: clsi
             SPELLING_HOST: spelling
+            TAGS_HOST: tags
             CHAT_HOST: chat
             DOCSTORE_HOST: docstore
             LISTEN_ADDRESS: docstore
@@ -196,6 +203,7 @@ services:
             SPELLING_HOST: spelling
             CHAT_HOST: chat
             DOCSTORE_HOST: docstore
+            TAGS_HOST: tags
             WEB_HOST: sharelatex
             LISTEN_ADDRESS: chat
             FILESTORE_HOST: filestore
@@ -232,8 +240,47 @@ services:
             CHAT_HOST: chat
             DOCSTORE_HOST: docstore
             SPELLING_HOST: spelling
+            TAGS_HOST: tags
             WEB_HOST: sharelatex
             LISTEN_ADDRESS: spelling
+            FILESTORE_HOST: filestore
+            ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+            ENABLE_CONVERSIONS: 'true'
+
+
+    tags:
+        restart: always
+        image: zevin/tags
+        container_name: tags
+        depends_on:
+          mongo:
+              condition: service_healthy
+          redis:
+              condition: service_started
+        privileged: true
+        ports:
+            - 3012:3012
+        links:
+            - mongo
+            - redis
+        volumes:
+            - ~/vol/tags_data:/var/lib/sharelatex
+        environment:
+            SHARELATEX_APP_NAME: Overleaf Community Edition
+          
+            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+          
+            # Same property, unfortunately with different names in
+            # different locations
+            SHARELATEX_REDIS_HOST: redis
+            REDIS_HOST: redis
+            CLSI_HOST: clsi
+            CHAT_HOST: chat
+            DOCSTORE_HOST: docstore
+            SPELLING_HOST: spelling
+            WEB_HOST: sharelatex
+            LISTEN_ADDRESS: tags
+            TAGS_HOST: tags
             FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'

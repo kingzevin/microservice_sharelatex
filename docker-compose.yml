@@ -25,6 +25,8 @@ services:
                 condition: service_started
             contacts:
                 condition: service_started
+            document_updater:
+                condition: service_started
         privileged: true
         ports:
             - 80:80
@@ -39,6 +41,7 @@ services:
             - tags
             - notifications
             - contacts
+            - document_updater
         volumes:
             - ~/vol/sharelatex_data:/var/lib/sharelatex
             - /var/run/docker.sock:/var/run/docker.sock
@@ -57,6 +60,7 @@ services:
             DOCSTORE_HOST: docstore
             SPELLING_HOST: spelling
             FILESTORE_HOST: filestore
+            DOCUMENT_UPDATER_HOST: document_updater
             CONTACTS_HOST: contacts
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
 
@@ -103,6 +107,7 @@ services:
             NOTIFICATIONS_HOST: notifications
             DOCSTORE_HOST: docstore
             LISTEN_ADDRESS: clsi
+            DOCUMENT_UPDATER_HOST: document_updater
             CONTACTS_HOST: contacts
             FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
@@ -145,6 +150,7 @@ services:
             NOTIFICATIONS_HOST: notifications
             CONTACTS_HOST: contacts
             FILESTORE_HOST: filestore
+            DOCUMENT_UPDATER_HOST: document_updater
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
 
@@ -181,6 +187,7 @@ services:
             DOCSTORE_HOST: docstore
             LISTEN_ADDRESS: docstore
             NOTIFICATIONS_HOST: notifications
+            DOCUMENT_UPDATER_HOST: document_updater
             CONTACTS_HOST: contacts
             FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
@@ -220,6 +227,7 @@ services:
             NOTIFICATIONS_HOST: notifications
             WEB_HOST: sharelatex
             LISTEN_ADDRESS: chat
+            DOCUMENT_UPDATER_HOST: document_updater
             CONTACTS_HOST: contacts
             FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
@@ -259,6 +267,7 @@ services:
             WEB_HOST: sharelatex
             NOTIFICATIONS_HOST: notifications
             LISTEN_ADDRESS: spelling
+            DOCUMENT_UPDATER_HOST: document_updater
             CONTACTS_HOST: contacts
             FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
@@ -299,6 +308,7 @@ services:
             LISTEN_ADDRESS: notifications
             TAGS_HOST: tags
             NOTIFICATIONS_HOST: notifications
+            DOCUMENT_UPDATER_HOST: document_updater
             CONTACTS_HOST: contacts
             FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
@@ -334,6 +344,7 @@ services:
             CHAT_HOST: chat
             DOCSTORE_HOST: docstore
             SPELLING_HOST: spelling
+            DOCUMENT_UPDATER_HOST: document_updater
             WEB_HOST: sharelatex
             NOTIFICATIONS_HOST: notifications
             LISTEN_ADDRESS: tags
@@ -379,13 +390,53 @@ services:
             LISTEN_ADDRESS: contacts
             CONTACTS_HOST: contacts
             TAGS_HOST: tags
+            DOCUMENT_UPDATER_HOST: document_updater
             FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
  
 
-
-
+    document_updater:
+        restart: always
+        image: zevin/document_updater
+        container_name: document_updater
+        depends_on:
+          mongo:
+              condition: service_healthy
+          redis:
+              condition: service_started
+        privileged: true
+        ports:
+            - 3003:3003
+        links:
+            - mongo
+            - redis
+        volumes:
+            - ~/vol/document_updater_data:/var/lib/sharelatex
+        environment:
+            SHARELATEX_APP_NAME: Overleaf Community Edition
+          
+            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+          
+            # Same property, unfortunately with different names in
+            # different locations
+            SHARELATEX_REDIS_HOST: redis
+            REDIS_HOST: redis
+            CLSI_HOST: clsi
+            CHAT_HOST: chat
+            DOCSTORE_HOST: docstore
+            SPELLING_HOST: spelling
+            WEB_HOST: sharelatex
+            NOTIFICATIONS_HOST: notifications
+            LISTEN_ADDRESS: document_updater
+            CONTACTS_HOST: contacts
+            TAGS_HOST: tags
+            FILESTORE_HOST: filestore
+            DOCUMENT_UPDATER_HOST: document_updater
+            ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+            ENABLE_CONVERSIONS: 'true'
+ 
+            
     mongo:
         restart: always
         image: mongo

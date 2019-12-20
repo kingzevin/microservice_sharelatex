@@ -499,14 +499,7 @@ services:
             DOCUMENT_UPDATER_HOST: document_updater
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
-            TRACK_CHANGES_HOST: sharelatex
-            PROJECT_HISTORY_HOST: sharelatex
-            TEMPLATES_HOST: sharelatex
-            GITHUB_SYNC_HOST: sharelatex
-            GEOIP_HOST: sharelatex
             REALTIME_HOST: real_time
-            NALYTICS_HOST: sharelatex
-            PUBLIC_URL: "web:3000"
             TRACK_CHANGES_HOST: trackchanges
             
 
@@ -549,13 +542,7 @@ services:
             DOCUMENT_UPDATER_HOST: document_updater
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
-            TRACK_CHANGES_HOST: sharelatex
-            PROJECT_HISTORY_HOST: sharelatex
-            TEMPLATES_HOST: sharelatex
-            GITHUB_SYNC_HOST: sharelatex
-            GEOIP_HOST: sharelatex
             REALTIME_HOST: real_time
-            NALYTICS_HOST: sharelatex
             TRACK_CHANGES_HOST: trackchanges
             
 
@@ -598,13 +585,7 @@ services:
             DOCUMENT_UPDATER_HOST: document_updater
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
-            TRACK_CHANGES_HOST: sharelatex
-            PROJECT_HISTORY_HOST: sharelatex
-            TEMPLATES_HOST: sharelatex
-            GITHUB_SYNC_HOST: sharelatex
-            GEOIP_HOST: sharelatex
             REALTIME_HOST: real_time
-            NALYTICS_HOST: sharelatex
             TRACK_CHANGES_HOST: trackchanges
 
 

@@ -507,7 +507,7 @@ services:
               condition: service_started
         privileged: true
         ports:
-            - 3000:3000
+            - 3026:3026
         links:
             - mongo
             - redis

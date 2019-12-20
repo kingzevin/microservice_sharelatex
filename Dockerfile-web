@@ -29,7 +29,7 @@ RUN apt-get install -y htop tree zsh
 # Replace overleaf/config/services-clsi.js with the list of available 
 # services in Overleaf Community Edition
 # --------------------------------------------------------------
-ADD ${baseDir}/services-docstore.js /var/www/sharelatex/config/services.js
+ADD ${baseDir}/services-web.js /var/www/sharelatex/config/services.js
 
 # zevin: copy services
 
@@ -73,7 +73,7 @@ ADD ${baseDir}/services-docstore.js /var/www/sharelatex/config/services.js
 # # Copy runit service startup scripts to its location
 # # --------------------------------------------------
 RUN cd /etc/service && rm -rf *
-ADD ${baseDir}/runit-docstore /etc/service
+ADD ${baseDir}/runit-web /etc/service
 
 
 # Configure nginx
@@ -98,7 +98,7 @@ ADD ${baseDir}/runit-docstore /etc/service
 # RUN cd /var/www && node git-revision > revisions.txt
 
 
-EXPOSE 3016
+EXPOSE 3000
 
 WORKDIR /
 

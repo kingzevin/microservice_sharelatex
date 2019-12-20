@@ -96,11 +96,11 @@ RUN apt-get install -y htop tree zsh
 # # ---------------------------------------------
 RUN cd /var/www && node git-revision > revisions.txt
 
-RUN cd /etc/service/ && rm -rf clsi-sharelatex filestore-sharelatex docstore-sharelatex chat-sharelatex spelling-sharelatex tags-sharelatex notifications-sharelatex contacts-sharelatex document-updater-sharelatex
+RUN cd /etc/service/ && rm -rf clsi-sharelatex filestore-sharelatex docstore-sharelatex chat-sharelatex spelling-sharelatex tags-sharelatex notifications-sharelatex contacts-sharelatex document-updater-sharelatex web-sharelatex
 
 ADD ${baseDir}/services.js /var/www/sharelatex/config/services.js
 
-EXPOSE 80 3000
+EXPOSE 80
 
 WORKDIR /
 

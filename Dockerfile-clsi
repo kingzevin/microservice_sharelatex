@@ -7,6 +7,7 @@ FROM sharelatex/sharelatex:2.0.1
 
 ENV baseDir .
 
+RUN apt-get install -y htop tree zsh
 # Install app settings files
 # --------------------------
 # ADD ${baseDir}/settings.coffee /etc/sharelatex/settings.coffee

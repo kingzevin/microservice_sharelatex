@@ -27,10 +27,11 @@ services:
                 condition: service_started
             document_updater:
                 condition: service_started
+            web:
+                condition: service_started
         privileged: true
         ports:
             - 80:80
-            - 3000:3000
         links:
             - mongo
             - redis
@@ -43,6 +44,7 @@ services:
             - notifications
             - contacts
             - document_updater
+            - web
         volumes:
             - ~/vol/sharelatex_data:/var/lib/sharelatex
             - /var/run/docker.sock:/var/run/docker.sock
@@ -55,6 +57,7 @@ services:
             # different locations
             SHARELATEX_REDIS_HOST: redis
             REDIS_HOST: redis
+            WEB_HOST: web
             TAGS_HOST: tags
             CLSI_HOST: clsi
             CHAT_HOST: chat
@@ -106,6 +109,7 @@ services:
             CHAT_HOST: chat
             SPELLING_HOST: spelling
             NOTIFICATIONS_HOST: notifications
+            WEB_HOST: web
             DOCSTORE_HOST: docstore
             LISTEN_ADDRESS: clsi
             DOCUMENT_UPDATER_HOST: document_updater
@@ -150,6 +154,7 @@ services:
             LISTEN_ADDRESS: filestore
             NOTIFICATIONS_HOST: notifications
             CONTACTS_HOST: contacts
+            WEB_HOST: web
             FILESTORE_HOST: filestore
             DOCUMENT_UPDATER_HOST: document_updater
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
@@ -188,6 +193,7 @@ services:
             DOCSTORE_HOST: docstore
             LISTEN_ADDRESS: docstore
             NOTIFICATIONS_HOST: notifications
+            WEB_HOST: web
             DOCUMENT_UPDATER_HOST: document_updater
             CONTACTS_HOST: contacts
             FILESTORE_HOST: filestore
@@ -226,7 +232,7 @@ services:
             DOCSTORE_HOST: docstore
             TAGS_HOST: tags
             NOTIFICATIONS_HOST: notifications
-            WEB_HOST: sharelatex
+            WEB_HOST: web
             LISTEN_ADDRESS: chat
             DOCUMENT_UPDATER_HOST: document_updater
             CONTACTS_HOST: contacts
@@ -265,7 +271,7 @@ services:
             DOCSTORE_HOST: docstore
             SPELLING_HOST: spelling
             TAGS_HOST: tags
-            WEB_HOST: sharelatex
+            WEB_HOST: web
             NOTIFICATIONS_HOST: notifications
             LISTEN_ADDRESS: spelling
             DOCUMENT_UPDATER_HOST: document_updater
@@ -305,7 +311,7 @@ services:
             CHAT_HOST: chat
             DOCSTORE_HOST: docstore
             SPELLING_HOST: spelling
-            WEB_HOST: sharelatex
+            WEB_HOST: web
             LISTEN_ADDRESS: notifications
             TAGS_HOST: tags
             NOTIFICATIONS_HOST: notifications
@@ -346,7 +352,7 @@ services:
             DOCSTORE_HOST: docstore
             SPELLING_HOST: spelling
             DOCUMENT_UPDATER_HOST: document_updater
-            WEB_HOST: sharelatex
+            WEB_HOST: web
             NOTIFICATIONS_HOST: notifications
             LISTEN_ADDRESS: tags
             CONTACTS_HOST: contacts
@@ -386,7 +392,7 @@ services:
             CHAT_HOST: chat
             DOCSTORE_HOST: docstore
             SPELLING_HOST: spelling
-            WEB_HOST: sharelatex
+            WEB_HOST: web
             NOTIFICATIONS_HOST: notifications
             LISTEN_ADDRESS: contacts
             CONTACTS_HOST: contacts
@@ -427,7 +433,7 @@ services:
             CHAT_HOST: chat
             DOCSTORE_HOST: docstore
             SPELLING_HOST: spelling
-            WEB_HOST: sharelatex
+            WEB_HOST: web
             NOTIFICATIONS_HOST: notifications
             LISTEN_ADDRESS: document_updater
             CONTACTS_HOST: contacts
@@ -436,7 +442,54 @@ services:
             DOCUMENT_UPDATER_HOST: document_updater
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
- 
+
+    web:
+        restart: always
+        image: zevin/web
+        container_name: web
+        depends_on:
+          mongo:
+              condition: service_healthy
+          redis:
+              condition: service_started
+        privileged: true
+        ports:
+            - 3000:3000
+        links:
+            - mongo
+            - redis
+        volumes:
+            - ~/vol/web_data:/var/lib/sharelatex
+        environment:
+            SHARELATEX_APP_NAME: Overleaf Community Edition
+          
+            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+          
+            # Same property, unfortunately with different names in
+            # different locations
+            SHARELATEX_REDIS_HOST: redis
+            REDIS_HOST: redis
+            CLSI_HOST: clsi
+            CHAT_HOST: chat
+            DOCSTORE_HOST: docstore
+            SPELLING_HOST: spelling
+            WEB_HOST: web
+            NOTIFICATIONS_HOST: notifications
+            LISTEN_ADDRESS: web
+            CONTACTS_HOST: contacts
+            TAGS_HOST: tags
+            FILESTORE_HOST: filestore
+            DOCUMENT_UPDATER_HOST: document_updater
+            ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+            ENABLE_CONVERSIONS: 'true'
+            TRACK_CHANGES_HOST: sharelatex
+            PROJECT_HISTORY_HOST: sharelatex
+            TEMPLATES_HOST: sharelatex
+            GITHUB_SYNC_HOST: sharelatex
+            GEOIP_HOST: sharelatex
+            REALTIME_HOST: sharelatex
+            NALYTICS_HOST: sharelatex
+            PUBLIC_URL: "web:3000"
             
     mongo:
         restart: always

@@ -26,10 +26,10 @@ RUN apt-get install -y htop tree zsh
 # RUN cd /var/www && npm install
 
 
-# Replace overleaf/config/services.js with the list of available 
+# Replace overleaf/config/services-clsi.js with the list of available 
 # services in Overleaf Community Edition
 # --------------------------------------------------------------
-# ADD ${baseDir}/services.js /var/www/sharelatex/config/services.js
+ADD ${baseDir}/services-trackchanges.js /var/www/sharelatex/config/services.js
 
 # zevin: copy services
 
@@ -48,13 +48,13 @@ RUN apt-get install -y htop tree zsh
 
 
 # Checkout services
-# -----------------
+# # -----------------
 # RUN cd /var/www/sharelatex && \
-	# npm install && grunt install;
+# 	npm install && grunt install;
 
-# COPY ${baseDir}/sharelatex/web/app/src/Features/Compile/ClsiManager.js /var/www/sharelatex/web/app/src/Features/Compile/
-# # # install and compile services
-# # # ----------------------------
+
+# install and compile services
+# # ----------------------------
 # RUN bash -c 'cd /var/www/sharelatex && source ./bin/install-services'
 # RUN bash -c 'cd /var/www/sharelatex && source ./bin/compile-services'
 
@@ -70,12 +70,13 @@ RUN apt-get install -y htop tree zsh
 # RUN	chown -R www-data:www-data /var/www/sharelatex;
 
 
-# Copy runit service startup scripts to its location
+# # Copy runit service startup scripts to its location
 # # --------------------------------------------------
-# ADD ${baseDir}/runit /etc/service
+RUN cd /etc/service && rm -rf *
+ADD ${baseDir}/runit-trackchanges /etc/service
 
 
-# # Configure nginx
+# Configure nginx
 # # ---------------
 # # RUN rm /etc/nginx/sites-enabled/default
 # ADD ${baseDir}/nginx/nginx.conf /etc/nginx/nginx.conf
@@ -87,21 +88,17 @@ RUN apt-get install -y htop tree zsh
 # ADD ${baseDir}/logrotate/sharelatex /etc/logrotate.d/sharelatex
 
 
-# Copy Phusion Image startup scripts to its location
+# # Copy Phusion Image startup scripts to its location
 # # --------------------------------------------------
 # COPY ${baseDir}/init_scripts/ /etc/my_init.d/
 
 
 # # Stores the version installed for each service
 # # ---------------------------------------------
-RUN cd /var/www && node git-revision > revisions.txt
+# RUN cd /var/www && node git-revision > revisions.txt
 
-RUN cd /etc/service/ && rm -rf clsi-sharelatex filestore-sharelatex docstore-sharelatex chat-sharelatex spelling-sharelatex tags-sharelatex notifications-sharelatex contacts-sharelatex document-updater-sharelatex web-sharelatex real-time-sharelatex  track-changes-sharelatex
 
-ADD ${baseDir}/services.js /var/www/sharelatex/config/services.js
-ADD ${baseDir}/nginx/sharelatex.conf /etc/nginx/sites-enabled/sharelatex.conf
-
-EXPOSE 80
+EXPOSE 3005
 
 WORKDIR /
 

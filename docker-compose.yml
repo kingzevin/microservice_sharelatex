@@ -31,6 +31,8 @@ services:
                 condition: service_started
             real_time:
                 condition: service_started
+            trackchanges:
+                condition: service_started
         privileged: true
         ports:
             - 80:80
@@ -48,6 +50,7 @@ services:
             - document_updater
             - web
             - real_time
+            - trackchanges
         volumes:
             - ~/vol/sharelatex_data:/var/lib/sharelatex
             - /var/run/docker.sock:/var/run/docker.sock
@@ -71,6 +74,7 @@ services:
             CONTACTS_HOST: contacts
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             REALTIME_HOST: real_time
+            TRACK_CHANGES_HOST: trackchanges
 
             # Enables Thumbnail generation using ImageMagick
             ENABLE_CONVERSIONS: 'true'
@@ -120,6 +124,7 @@ services:
             CONTACTS_HOST: contacts
             FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+            TRACK_CHANGES_HOST: trackchanges
             ENABLE_CONVERSIONS: 'true'
 
     filestore:
@@ -163,6 +168,7 @@ services:
             DOCUMENT_UPDATER_HOST: document_updater
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
+            TRACK_CHANGES_HOST: trackchanges
 
     docstore:
         restart: always
@@ -203,6 +209,7 @@ services:
             FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
+            TRACK_CHANGES_HOST: trackchanges
 
     chat:
         restart: always
@@ -242,6 +249,7 @@ services:
             CONTACTS_HOST: contacts
             FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+            TRACK_CHANGES_HOST: trackchanges
             ENABLE_CONVERSIONS: 'true'
 
     spelling:
@@ -283,6 +291,7 @@ services:
             FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
+            TRACK_CHANGES_HOST: trackchanges
 
 
     notifications:
@@ -323,6 +332,7 @@ services:
             CONTACTS_HOST: contacts
             FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+            TRACK_CHANGES_HOST: trackchanges
             ENABLE_CONVERSIONS: 'true'
 
     tags:
@@ -364,6 +374,7 @@ services:
             FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
+            TRACK_CHANGES_HOST: trackchanges
 
            
     contacts:
@@ -405,6 +416,7 @@ services:
             FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
+            TRACK_CHANGES_HOST: trackchanges
  
 
     document_updater:
@@ -446,6 +458,7 @@ services:
             DOCUMENT_UPDATER_HOST: document_updater
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
+            TRACK_CHANGES_HOST: trackchanges
 
     web:
         restart: always
@@ -494,6 +507,7 @@ services:
             REALTIME_HOST: real_time
             NALYTICS_HOST: sharelatex
             PUBLIC_URL: "web:3000"
+            TRACK_CHANGES_HOST: trackchanges
             
 
     real_time:
@@ -542,7 +556,57 @@ services:
             GEOIP_HOST: sharelatex
             REALTIME_HOST: real_time
             NALYTICS_HOST: sharelatex
+            TRACK_CHANGES_HOST: trackchanges
             
+
+    trackchanges:
+        restart: always
+        image: zevin/trackchanges
+        container_name: trackchanges
+        depends_on:
+          mongo:
+              condition: service_healthy
+          redis:
+              condition: service_started
+        privileged: true
+        ports:
+            - 3015:3015
+        links:
+            - mongo
+            - redis
+        volumes:
+            - ~/vol/trackchanges_data:/var/lib/sharelatex
+        environment:
+            SHARELATEX_APP_NAME: Overleaf Community Edition
+          
+            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+          
+            # Same property, unfortunately with different names in
+            # different locations
+            SHARELATEX_REDIS_HOST: redis
+            REDIS_HOST: redis
+            CLSI_HOST: clsi
+            CHAT_HOST: chat
+            DOCSTORE_HOST: docstore
+            SPELLING_HOST: spelling
+            WEB_HOST: web
+            NOTIFICATIONS_HOST: notifications
+            LISTEN_ADDRESS: trackchanges
+            CONTACTS_HOST: contacts
+            TAGS_HOST: tags
+            FILESTORE_HOST: filestore
+            DOCUMENT_UPDATER_HOST: document_updater
+            ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+            ENABLE_CONVERSIONS: 'true'
+            TRACK_CHANGES_HOST: sharelatex
+            PROJECT_HISTORY_HOST: sharelatex
+            TEMPLATES_HOST: sharelatex
+            GITHUB_SYNC_HOST: sharelatex
+            GEOIP_HOST: sharelatex
+            REALTIME_HOST: real_time
+            NALYTICS_HOST: sharelatex
+            TRACK_CHANGES_HOST: trackchanges
+
 
     mongo:
         restart: always

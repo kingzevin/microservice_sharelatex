@@ -29,6 +29,8 @@ services:
                 condition: service_started
             web:
                 condition: service_started
+            real_time:
+                condition: service_started
         privileged: true
         ports:
             - 80:80
@@ -45,6 +47,7 @@ services:
             - contacts
             - document_updater
             - web
+            - real_time
         volumes:
             - ~/vol/sharelatex_data:/var/lib/sharelatex
             - /var/run/docker.sock:/var/run/docker.sock
@@ -67,6 +70,7 @@ services:
             DOCUMENT_UPDATER_HOST: document_updater
             CONTACTS_HOST: contacts
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+            REALTIME_HOST: real_time
 
             # Enables Thumbnail generation using ImageMagick
             ENABLE_CONVERSIONS: 'true'
@@ -487,10 +491,59 @@ services:
             TEMPLATES_HOST: sharelatex
             GITHUB_SYNC_HOST: sharelatex
             GEOIP_HOST: sharelatex
-            REALTIME_HOST: sharelatex
+            REALTIME_HOST: real_time
             NALYTICS_HOST: sharelatex
             PUBLIC_URL: "web:3000"
             
+
+    real_time:
+        restart: always
+        image: zevin/real_time
+        container_name: real_time
+        depends_on:
+          mongo:
+              condition: service_healthy
+          redis:
+              condition: service_started
+        privileged: true
+        ports:
+            - 3000:3000
+        links:
+            - mongo
+            - redis
+        volumes:
+            - ~/vol/real_time_data:/var/lib/sharelatex
+        environment:
+            SHARELATEX_APP_NAME: Overleaf Community Edition
+          
+            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+          
+            # Same property, unfortunately with different names in
+            # different locations
+            SHARELATEX_REDIS_HOST: redis
+            REDIS_HOST: redis
+            CLSI_HOST: clsi
+            CHAT_HOST: chat
+            DOCSTORE_HOST: docstore
+            SPELLING_HOST: spelling
+            WEB_HOST: web
+            NOTIFICATIONS_HOST: notifications
+            LISTEN_ADDRESS: real_time
+            CONTACTS_HOST: contacts
+            TAGS_HOST: tags
+            FILESTORE_HOST: filestore
+            DOCUMENT_UPDATER_HOST: document_updater
+            ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+            ENABLE_CONVERSIONS: 'true'
+            TRACK_CHANGES_HOST: sharelatex
+            PROJECT_HISTORY_HOST: sharelatex
+            TEMPLATES_HOST: sharelatex
+            GITHUB_SYNC_HOST: sharelatex
+            GEOIP_HOST: sharelatex
+            REALTIME_HOST: real_time
+            NALYTICS_HOST: sharelatex
+            
+
     mongo:
         restart: always
         image: mongo

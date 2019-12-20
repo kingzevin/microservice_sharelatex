@@ -23,6 +23,8 @@ services:
                 condition: service_started
             notifications:
                 condition: service_started
+            contacts:
+                condition: service_started
         privileged: true
         ports:
             - 80:80
@@ -36,6 +38,7 @@ services:
             - spelling
             - tags
             - notifications
+            - contacts
         volumes:
             - ~/vol/sharelatex_data:/var/lib/sharelatex
             - /var/run/docker.sock:/var/run/docker.sock
@@ -54,6 +57,7 @@ services:
             DOCSTORE_HOST: docstore
             SPELLING_HOST: spelling
             FILESTORE_HOST: filestore
+            CONTACTS_HOST: contacts
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
 
             # Enables Thumbnail generation using ImageMagick
@@ -99,6 +103,7 @@ services:
             NOTIFICATIONS_HOST: notifications
             DOCSTORE_HOST: docstore
             LISTEN_ADDRESS: clsi
+            CONTACTS_HOST: contacts
             FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
@@ -138,6 +143,7 @@ services:
             SPELLING_HOST: spelling
             LISTEN_ADDRESS: filestore
             NOTIFICATIONS_HOST: notifications
+            CONTACTS_HOST: contacts
             FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
@@ -175,6 +181,7 @@ services:
             DOCSTORE_HOST: docstore
             LISTEN_ADDRESS: docstore
             NOTIFICATIONS_HOST: notifications
+            CONTACTS_HOST: contacts
             FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
@@ -213,6 +220,7 @@ services:
             NOTIFICATIONS_HOST: notifications
             WEB_HOST: sharelatex
             LISTEN_ADDRESS: chat
+            CONTACTS_HOST: contacts
             FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
@@ -251,6 +259,7 @@ services:
             WEB_HOST: sharelatex
             NOTIFICATIONS_HOST: notifications
             LISTEN_ADDRESS: spelling
+            CONTACTS_HOST: contacts
             FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
@@ -290,6 +299,7 @@ services:
             LISTEN_ADDRESS: notifications
             TAGS_HOST: tags
             NOTIFICATIONS_HOST: notifications
+            CONTACTS_HOST: contacts
             FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
@@ -327,12 +337,52 @@ services:
             WEB_HOST: sharelatex
             NOTIFICATIONS_HOST: notifications
             LISTEN_ADDRESS: tags
+            CONTACTS_HOST: contacts
             TAGS_HOST: tags
             FILESTORE_HOST: filestore
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
 
-            
+           
+    contacts:
+        restart: always
+        image: zevin/contacts
+        container_name: contacts
+        depends_on:
+          mongo:
+              condition: service_healthy
+          redis:
+              condition: service_started
+        privileged: true
+        ports:
+            - 3036:3036
+        links:
+            - mongo
+            - redis
+        volumes:
+            - ~/vol/contacts_data:/var/lib/sharelatex
+        environment:
+            SHARELATEX_APP_NAME: Overleaf Community Edition
+          
+            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+          
+            # Same property, unfortunately with different names in
+            # different locations
+            SHARELATEX_REDIS_HOST: redis
+            REDIS_HOST: redis
+            CLSI_HOST: clsi
+            CHAT_HOST: chat
+            DOCSTORE_HOST: docstore
+            SPELLING_HOST: spelling
+            WEB_HOST: sharelatex
+            NOTIFICATIONS_HOST: notifications
+            LISTEN_ADDRESS: contacts
+            CONTACTS_HOST: contacts
+            TAGS_HOST: tags
+            FILESTORE_HOST: filestore
+            ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+            ENABLE_CONVERSIONS: 'true'
+ 
 
 
 

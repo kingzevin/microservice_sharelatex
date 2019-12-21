@@ -99,7 +99,7 @@ ADD ${baseDir}/runit-trackchanges /etc/service
 ADD ${baseDir}/settings.coffee /etc/sharelatex/settings.coffee
 
 
-EXPOSE 3005
+EXPOSE 3015
 
 WORKDIR /
 

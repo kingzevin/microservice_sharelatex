@@ -1,9 +1,9 @@
 version: '2.2'
 services:
-    sharelatex:
+    nginx:
         restart: always
-        image: zevin/sharelatex
-        container_name: sharelatex
+        image: zevin/nginx
+        container_name: nginx
         depends_on:
             mongo:
                 condition: service_healthy
@@ -52,12 +52,12 @@ services:
             - real_time
             - trackchanges
         volumes:
-            - ~/vol/sharelatex_data:/var/lib/sharelatex
+            - ~/vol/nginx_data:/var/lib/nginx
             - /var/run/docker.sock:/var/run/docker.sock
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
           
-            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+            SHARELATEX_MONGO_URL: mongodb://mongo/nginx
           
             # Same property, unfortunately with different names in
             # different locations
@@ -72,7 +72,7 @@ services:
             FILESTORE_HOST: filestore
             DOCUMENT_UPDATER_HOST: document_updater
             CONTACTS_HOST: contacts
-            LISTEN_ADDRESS: sharelatex
+            LISTEN_ADDRESS: nginx
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             REALTIME_HOST: real_time
             TRACK_CHANGES_HOST: trackchanges
@@ -80,7 +80,7 @@ services:
             # Enables Thumbnail generation using ImageMagick
             ENABLE_CONVERSIONS: 'true'
 
-            # SHARELATEX_SITE_URL: http://sharelatex.mydomain.com
+            # SHARELATEX_SITE_URL: http://nginx.mydomain.com
             # SHARELATEX_NAV_TITLE: Our ShareLaTeX Instance
             # SHARELATEX_HEADER_IMAGE_URL: http://somewhere.com/mylogo.png
             # SHARELATEX_ADMIN_EMAIL: support@it.com
@@ -103,11 +103,11 @@ services:
             - mongo
             - redis
         volumes:
-            - ~/vol/clsi_data:/var/lib/sharelatex
+            - ~/vol/clsi_data:/var/lib/nginx
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
           
-            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+            SHARELATEX_MONGO_URL: mongodb://mongo/nginx
           
             # Same property, unfortunately with different names in
             # different locations
@@ -146,11 +146,11 @@ services:
             - mongo
             - redis
         volumes:
-            - ~/vol/filestore_data:/var/lib/sharelatex
+            - ~/vol/filestore_data:/var/lib/nginx
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
           
-            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+            SHARELATEX_MONGO_URL: mongodb://mongo/nginx
           
             # Same property, unfortunately with different names in
             # different locations
@@ -187,11 +187,11 @@ services:
             - mongo
             - redis
         volumes:
-            - ~/vol/docstore_data:/var/lib/sharelatex
+            - ~/vol/docstore_data:/var/lib/nginx
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
           
-            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+            SHARELATEX_MONGO_URL: mongodb://mongo/nginx
           
             # Same property, unfortunately with different names in
             # different locations
@@ -228,11 +228,11 @@ services:
             - mongo
             - redis
         volumes:
-            - ~/vol/chat_data:/var/lib/sharelatex
+            - ~/vol/chat_data:/var/lib/nginx
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
           
-            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+            SHARELATEX_MONGO_URL: mongodb://mongo/nginx
           
             # Same property, unfortunately with different names in
             # different locations
@@ -269,11 +269,11 @@ services:
             - mongo
             - redis
         volumes:
-            - ~/vol/spelling_data:/var/lib/sharelatex
+            - ~/vol/spelling_data:/var/lib/nginx
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
           
-            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+            SHARELATEX_MONGO_URL: mongodb://mongo/nginx
           
             # Same property, unfortunately with different names in
             # different locations
@@ -311,11 +311,11 @@ services:
             - mongo
             - redis
         volumes:
-            - ~/vol/notifications_data:/var/lib/sharelatex
+            - ~/vol/notifications_data:/var/lib/nginx
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
           
-            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+            SHARELATEX_MONGO_URL: mongodb://mongo/nginx
           
             # Same property, unfortunately with different names in
             # different locations
@@ -352,11 +352,11 @@ services:
             - mongo
             - redis
         volumes:
-            - ~/vol/tags_data:/var/lib/sharelatex
+            - ~/vol/tags_data:/var/lib/nginx
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
           
-            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+            SHARELATEX_MONGO_URL: mongodb://mongo/nginx
           
             # Same property, unfortunately with different names in
             # different locations
@@ -394,11 +394,11 @@ services:
             - mongo
             - redis
         volumes:
-            - ~/vol/contacts_data:/var/lib/sharelatex
+            - ~/vol/contacts_data:/var/lib/nginx
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
           
-            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+            SHARELATEX_MONGO_URL: mongodb://mongo/nginx
           
             # Same property, unfortunately with different names in
             # different locations
@@ -436,11 +436,11 @@ services:
             - mongo
             - redis
         volumes:
-            - ~/vol/document_updater_data:/var/lib/sharelatex
+            - ~/vol/document_updater_data:/var/lib/nginx
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
           
-            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+            SHARELATEX_MONGO_URL: mongodb://mongo/nginx
           
             # Same property, unfortunately with different names in
             # different locations
@@ -477,11 +477,11 @@ services:
             - mongo
             - redis
         volumes:
-            - ~/vol/web_data:/var/lib/sharelatex
+            - ~/vol/web_data:/var/lib/nginx
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
           
-            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+            SHARELATEX_MONGO_URL: mongodb://mongo/nginx
           
             # Same property, unfortunately with different names in
             # different locations
@@ -520,11 +520,11 @@ services:
             - mongo
             - redis
         volumes:
-            - ~/vol/real_time_data:/var/lib/sharelatex
+            - ~/vol/real_time_data:/var/lib/nginx
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
           
-            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+            SHARELATEX_MONGO_URL: mongodb://mongo/nginx
           
             # Same property, unfortunately with different names in
             # different locations
@@ -563,11 +563,11 @@ services:
             - mongo
             - redis
         volumes:
-            - ~/vol/trackchanges_data:/var/lib/sharelatex
+            - ~/vol/trackchanges_data:/var/lib/nginx
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
           
-            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+            SHARELATEX_MONGO_URL: mongodb://mongo/nginx
           
             # Same property, unfortunately with different names in
             # different locations

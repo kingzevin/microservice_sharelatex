@@ -96,6 +96,7 @@ ADD ${baseDir}/runit-real-time /etc/service
 # # Stores the version installed for each service
 # # ---------------------------------------------
 # RUN cd /var/www && node git-revision > revisions.txt
+ADD ${baseDir}/settings.coffee /etc/sharelatex/settings.coffee
 
 
 EXPOSE 3026

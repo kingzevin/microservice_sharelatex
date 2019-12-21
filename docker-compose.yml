@@ -72,6 +72,7 @@ services:
             FILESTORE_HOST: filestore
             DOCUMENT_UPDATER_HOST: document_updater
             CONTACTS_HOST: contacts
+            LISTEN_ADDRESS: sharelatex
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             REALTIME_HOST: real_time
             TRACK_CHANGES_HOST: trackchanges

@@ -3,7 +3,7 @@ Path = require('path')
 # These credentials are used for authenticating api requests
 # between services that may need to go over public channels
 httpAuthUser = "sharelatex"
-httpAuthPass = "CRYPTO_RANDOM" # Randomly generated for you
+httpAuthPass = "DJ4yZSQcNzU0AcM4DVHCARjJhvYh6DQLg9JobVe0Q" # Randomly generated for you
 httpAuthUsers = {}
 httpAuthUsers[httpAuthUser] = httpAuthPass
 
@@ -162,7 +162,7 @@ settings =
 	# If provided, a sessionSecret is used to sign cookies so that they cannot be
 	# spoofed. This is recommended.
 	security:
-		sessionSecret: process.env["SHARELATEX_SESSION_SECRET"] or "CRYPTO_RANDOM" # This was randomly generated for you
+		sessionSecret: process.env["SHARELATEX_SESSION_SECRET"] or "L2IwtNIMux1IixdOUahkghdamyi4EGXSnD1xIOLU0" # This was randomly generated for you
 
 	# These credentials are used for authenticating api requests
 	# between services that may need to go over public channels
@@ -193,9 +193,13 @@ settings =
 
 	apis:
 		web:
-			url: "http://localhost:3000"
+			url: "http://#{process.env['WEB_API_HOST'] or process.env['WEB_HOST'] or "localhost"}:#{process.env['WEB_API_PORT'] or process.env['WEB_PORT'] or 3000}"
 			user: httpAuthUser
 			pass: httpAuthPass
+		# overrides v1.url to indicate via Feature Flags that Overleaf V1
+		# is not available
+		v1:
+			url: ""
 		project_history:
 			enabled: false
 	references:{}
@@ -542,4 +546,3 @@ https = require('https')
 https.globalAgent.maxSockets = 300
 
 module.exports = settings
-

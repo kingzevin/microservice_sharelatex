@@ -72,7 +72,8 @@ services:
             FILESTORE_HOST: filestore
             DOCUMENT_UPDATER_HOST: document_updater
             CONTACTS_HOST: contacts
-            LISTEN_ADDRESS: nginx
+            LISTEN_ADDRESS: 0.0.0.0
+            # LISTEN_ADDRESS: nginx
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             REALTIME_HOST: real_time
             TRACK_CHANGES_HOST: trackchanges
@@ -120,7 +121,8 @@ services:
             NOTIFICATIONS_HOST: notifications
             WEB_HOST: web
             DOCSTORE_HOST: docstore
-            LISTEN_ADDRESS: clsi
+            LISTEN_ADDRESS: 0.0.0.0
+            # LISTEN_ADDRESS: clsi
             DOCUMENT_UPDATER_HOST: document_updater
             CONTACTS_HOST: contacts
             FILESTORE_HOST: filestore
@@ -161,7 +163,8 @@ services:
             CHAT_HOST: chat
             DOCSTORE_HOST: docstore
             SPELLING_HOST: spelling
-            LISTEN_ADDRESS: filestore
+            LISTEN_ADDRESS: 0.0.0.0
+            # LISTEN_ADDRESS: filestore
             NOTIFICATIONS_HOST: notifications
             CONTACTS_HOST: contacts
             WEB_HOST: web
@@ -202,7 +205,8 @@ services:
             TAGS_HOST: tags
             CHAT_HOST: chat
             DOCSTORE_HOST: docstore
-            LISTEN_ADDRESS: docstore
+            LISTEN_ADDRESS: 0.0.0.0
+            # LISTEN_ADDRESS: docstore
             NOTIFICATIONS_HOST: notifications
             WEB_HOST: web
             DOCUMENT_UPDATER_HOST: document_updater
@@ -245,7 +249,8 @@ services:
             TAGS_HOST: tags
             NOTIFICATIONS_HOST: notifications
             WEB_HOST: web
-            LISTEN_ADDRESS: chat
+            LISTEN_ADDRESS: 0.0.0.0
+            # LISTEN_ADDRESS: chat
             DOCUMENT_UPDATER_HOST: document_updater
             CONTACTS_HOST: contacts
             FILESTORE_HOST: filestore
@@ -286,7 +291,8 @@ services:
             TAGS_HOST: tags
             WEB_HOST: web
             NOTIFICATIONS_HOST: notifications
-            LISTEN_ADDRESS: spelling
+            LISTEN_ADDRESS: 0.0.0.0
+            # LISTEN_ADDRESS: spelling
             DOCUMENT_UPDATER_HOST: document_updater
             CONTACTS_HOST: contacts
             FILESTORE_HOST: filestore
@@ -326,7 +332,8 @@ services:
             DOCSTORE_HOST: docstore
             SPELLING_HOST: spelling
             WEB_HOST: web
-            LISTEN_ADDRESS: notifications
+            LISTEN_ADDRESS: 0.0.0.0
+            # LISTEN_ADDRESS: notifications
             TAGS_HOST: tags
             NOTIFICATIONS_HOST: notifications
             DOCUMENT_UPDATER_HOST: document_updater
@@ -369,7 +376,8 @@ services:
             DOCUMENT_UPDATER_HOST: document_updater
             WEB_HOST: web
             NOTIFICATIONS_HOST: notifications
-            LISTEN_ADDRESS: tags
+            LISTEN_ADDRESS: 0.0.0.0
+            # LISTEN_ADDRESS: tags
             CONTACTS_HOST: contacts
             TAGS_HOST: tags
             FILESTORE_HOST: filestore
@@ -410,7 +418,8 @@ services:
             SPELLING_HOST: spelling
             WEB_HOST: web
             NOTIFICATIONS_HOST: notifications
-            LISTEN_ADDRESS: contacts
+            LISTEN_ADDRESS: 0.0.0.0
+            # LISTEN_ADDRESS: contacts
             CONTACTS_HOST: contacts
             TAGS_HOST: tags
             DOCUMENT_UPDATER_HOST: document_updater
@@ -452,7 +461,8 @@ services:
             SPELLING_HOST: spelling
             WEB_HOST: web
             NOTIFICATIONS_HOST: notifications
-            LISTEN_ADDRESS: document_updater
+            LISTEN_ADDRESS: 0.0.0.0
+            # LISTEN_ADDRESS: document_updater
             CONTACTS_HOST: contacts
             TAGS_HOST: tags
             FILESTORE_HOST: filestore
@@ -493,7 +503,8 @@ services:
             SPELLING_HOST: spelling
             WEB_HOST: web
             NOTIFICATIONS_HOST: notifications
-            LISTEN_ADDRESS: web
+            LISTEN_ADDRESS: 0.0.0.0
+            # LISTEN_ADDRESS: web
             CONTACTS_HOST: contacts
             TAGS_HOST: tags
             FILESTORE_HOST: filestore
@@ -536,7 +547,8 @@ services:
             SPELLING_HOST: spelling
             WEB_HOST: web
             NOTIFICATIONS_HOST: notifications
-            LISTEN_ADDRESS: real_time
+            LISTEN_ADDRESS: 0.0.0.0
+            # LISTEN_ADDRESS: real_time
             CONTACTS_HOST: contacts
             TAGS_HOST: tags
             FILESTORE_HOST: filestore
@@ -579,7 +591,8 @@ services:
             SPELLING_HOST: spelling
             WEB_HOST: web
             NOTIFICATIONS_HOST: notifications
-            LISTEN_ADDRESS: trackchanges
+            LISTEN_ADDRESS: 0.0.0.0
+            # LISTEN_ADDRESS: trackchanges
             CONTACTS_HOST: contacts
             TAGS_HOST: tags
             FILESTORE_HOST: filestore

@@ -1,0 +1,19 @@
+# ---------------------------------------------
+# Overleaf Community Edition (overleaf/overleaf)
+# zevin version
+# ---------------------------------------------
+
+FROM sharelatex/sharelatex:2.2.0
+
+ENV baseDir .
+
+RUN cd /etc/service && rm -rf chat-sharelatex clsi-sharelatex contacts-sharelatex docstore-sharelatex filestore-sharelatex notifications-sharelatex spelling-sharelatex tags-sharelatex track-changes-sharelatex 
+
+# COPY ${baseDir}/nginx.conf /etc/nginx/sites-enabled/sharelatex.conf
+
+EXPOSE 80
+
+WORKDIR /
+
+ENTRYPOINT ["/sbin/my_init"]
+

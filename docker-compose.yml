@@ -2,8 +2,8 @@ version: '2.2'
 services:
     nginx:
         restart: always
-        image: zevin/nginx
-        container_name: nginx
+        image: microsharelatex/nginx:2.2.0
+        container_name: microsharelatex_nginx
         depends_on:
             mongo:
                 condition: service_healthy
@@ -35,7 +35,7 @@ services:
                 condition: service_started
         privileged: true
         ports:
-            - 80:80
+            - 8002:80
         links:
             - mongo
             - redis
@@ -52,7 +52,7 @@ services:
             - real_time
             - trackchanges
         volumes:
-            - ~/vol/nginx_data:/var/lib/sharelatex
+            - ~/.tmp/vol/nginx_log:/var/log/nginx
             - /var/run/docker.sock:/var/run/docker.sock
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
@@ -90,8 +90,8 @@ services:
 
     clsi:
         restart: always
-        image: zevin/clsi
-        container_name: clsi
+        image: microsharelatex/clsi:2.2.0
+        container_name: microsharelatex_clsi
         depends_on:
           mongo:
               condition: service_healthy
@@ -104,7 +104,8 @@ services:
             - mongo
             - redis
         volumes:
-            - ~/vol/clsi_data:/var/lib/sharelatex
+            - ~/.tmp/vol/clsi_data:/var/lib/sharelatex
+            - ~/.tmp/vol/clsi_logs:/var/log/sharelatex
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
           
@@ -132,8 +133,8 @@ services:
 
     filestore:
         restart: always
-        image: zevin/filestore
-        container_name: filestore
+        image: microsharelatex/filestore:2.2.0
+        container_name: microsharelatex_filestore
         depends_on:
           mongo:
               condition: service_healthy
@@ -148,7 +149,8 @@ services:
             - mongo
             - redis
         volumes:
-            - ~/vol/filestore_data:/var/lib/sharelatex
+            - ~/.tmp/vol/filestore_logs:/var/log/sharelatex
+            - ~/.tmp/vol/filestore_data:/var/lib/sharelatex
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
           
@@ -176,8 +178,8 @@ services:
 
     docstore:
         restart: always
-        image: zevin/docstore
-        container_name: docstore
+        image: microsharelatex/docstore:2.2.0
+        container_name: microsharelatex_docstore
         depends_on:
           mongo:
               condition: service_healthy
@@ -190,7 +192,7 @@ services:
             - mongo
             - redis
         volumes:
-            - ~/vol/docstore_data:/var/lib/sharelatex
+            - ~/.tmp/vol/docstore_data:/var/lib/sharelatex
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
           
@@ -218,8 +220,8 @@ services:
 
     chat:
         restart: always
-        image: zevin/chat
-        container_name: chat
+        image: microsharelatex/chat:2.2.0
+        container_name: microsharelatex_chat
         depends_on:
           mongo:
               condition: service_healthy
@@ -232,7 +234,7 @@ services:
             - mongo
             - redis
         volumes:
-            - ~/vol/chat_data:/var/lib/sharelatex
+            - ~/.tmp/vol/chat_logs:/var/log/sharelatex
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
           
@@ -260,8 +262,8 @@ services:
 
     spelling:
         restart: always
-        image: zevin/spelling
-        container_name: spelling
+        image: microsharelatex/spelling:2.2.0
+        container_name: microsharelatex_spelling
         depends_on:
           mongo:
               condition: service_healthy
@@ -274,7 +276,7 @@ services:
             - mongo
             - redis
         volumes:
-            - ~/vol/spelling_data:/var/lib/sharelatex
+            - ~/.tmp/vol/spelling_logs:/var/log/sharelatex
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
           
@@ -303,8 +305,8 @@ services:
 
     notifications:
         restart: always
-        image: zevin/notifications
-        container_name: notifications
+        image: microsharelatex/notifications:2.2.0
+        container_name: microsharelatex_notifications
         depends_on:
           mongo:
               condition: service_healthy
@@ -317,7 +319,7 @@ services:
             - mongo
             - redis
         volumes:
-            - ~/vol/notifications_data:/var/lib/sharelatex
+            - ~/.tmp/vol/notifications_logs:/var/log/sharelatex
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
           
@@ -345,8 +347,8 @@ services:
 
     tags:
         restart: always
-        image: zevin/tags
-        container_name: tags
+        image: microsharelatex/tags:2.2.0
+        container_name: microsharelatex_tags
         depends_on:
           mongo:
               condition: service_healthy
@@ -359,7 +361,7 @@ services:
             - mongo
             - redis
         volumes:
-            - ~/vol/tags_data:/var/lib/sharelatex
+            - ~/.tmp/vol/tags_logs:/var/log/sharelatex
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
           
@@ -388,8 +390,8 @@ services:
            
     contacts:
         restart: always
-        image: zevin/contacts
-        container_name: contacts
+        image: microsharelatex/contacts:2.2.0
+        container_name: microsharelatex_contacts
         depends_on:
           mongo:
               condition: service_healthy
@@ -402,7 +404,8 @@ services:
             - mongo
             - redis
         volumes:
-            - ~/vol/contacts_data:/var/lib/sharelatex
+            - ~/.tmp/vol/contacts_data:/var/lib/sharelatex
+            - ~/.tmp/vol/contacts_logs:/var/log/sharelatex
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
           
@@ -431,8 +434,8 @@ services:
 
     document_updater:
         restart: always
-        image: zevin/document_updater
-        container_name: document_updater
+        image: microsharelatex/document-updater:2.2.0
+        container_name: microsharelatex_document_updater
         depends_on:
           mongo:
               condition: service_healthy
@@ -445,7 +448,8 @@ services:
             - mongo
             - redis
         volumes:
-            - ~/vol/document_updater_data:/var/lib/sharelatex
+            - ~/.tmp/vol/document_updater_data:/var/lib/sharelatex
+            - ~/.tmp/vol/document_updater_logs:/var/log/sharelatex
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
           
@@ -473,8 +477,8 @@ services:
 
     web:
         restart: always
-        image: zevin/web
-        container_name: web
+        image: microsharelatex/web:2.2.0
+        container_name: microsharelatex_web
         depends_on:
           mongo:
               condition: service_healthy
@@ -487,7 +491,8 @@ services:
             - mongo
             - redis
         volumes:
-            - ~/vol/web_data:/var/lib/sharelatex
+            - ~/.tmp/vol/web_data:/var/lib/sharelatex
+            - ~/.tmp/vol/web_logs:/var/log/sharelatex
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
           
@@ -517,8 +522,8 @@ services:
 
     real_time:
         restart: always
-        image: zevin/real_time
-        container_name: real_time
+        image: microsharelatex/real-time:2.2.0
+        container_name: microsharelatex_real_time
         depends_on:
           mongo:
               condition: service_healthy
@@ -531,7 +536,8 @@ services:
             - mongo
             - redis
         volumes:
-            - ~/vol/real_time_data:/var/lib/sharelatex
+            - ~/.tmp/vol/real_time_data:/var/lib/sharelatex
+            - ~/.tmp/vol/real_time_logs:/var/log/sharelatex
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
           
@@ -561,8 +567,8 @@ services:
 
     trackchanges:
         restart: always
-        image: zevin/trackchanges
-        container_name: trackchanges
+        image: microsharelatex/track-changes:2.2.0
+        container_name: microsharelatex_trackchanges
         depends_on:
           mongo:
               condition: service_healthy
@@ -575,7 +581,8 @@ services:
             - mongo
             - redis
         volumes:
-            - ~/vol/trackchanges_data:/var/lib/sharelatex
+            - ~/.tmp/vol/trackchanges_data:/var/lib/sharelatex
+            - ~/.tmp/vol/trackchanges_logs:/var/log/sharelatex
         environment:
             SHARELATEX_APP_NAME: Overleaf Community Edition
           
@@ -604,13 +611,13 @@ services:
 
 
     mongo:
-        restart: always
+        restart: "no"
         image: mongo
-        container_name: mongo
+        container_name: microsharelatex_mongo
         expose:
             - 27017
         volumes:
-            - ~/vol/mongo_data:/data/db
+            - ~/.tmp/vol/mongo_data:/data/db
         healthcheck:
             test: echo 'db.stats().ok' | mongo localhost:27017/test --quiet
             interval: 10s
@@ -620,10 +627,10 @@ services:
     redis:
         restart: always
         image: redis
-        container_name: redis
+        container_name: microsharelatex_redis
         expose:
             - 6379
         volumes:
-            - ~/vol/redis_data:/data
+            - ~/.tmp/vol/redis_data:/data
     
     

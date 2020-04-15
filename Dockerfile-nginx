@@ -7,9 +7,11 @@ FROM sharelatex/sharelatex:2.2.0
 
 ENV baseDir .
 
-RUN cd /etc/service && mv tags-sharelatex .tags-sharelatex  && rm -rf *-sharelatex && rm -rf nginx && mv .tags-sharelatex tags-sharelatex
+RUN cd /etc/service && rm -rf *-sharelatex 
 
-EXPOSE 3012
+COPY ${baseDir}/nginx.conf /etc/nginx/sites-enabled/sharelatex.conf
+
+EXPOSE 80
 
 WORKDIR /
 

@@ -66,6 +66,7 @@ services:
             SPELLING_HOST: spelling
             FILESTORE_HOST: filestore
             DOCUMENT_UPDATER_HOST: sharelatex
+            NOTIFICATIONS_HOST: notifications
             CONTACTS_HOST: contacts
             LISTEN_ADDRESS: 0.0.0.0
             # LISTEN_ADDRESS: nginx

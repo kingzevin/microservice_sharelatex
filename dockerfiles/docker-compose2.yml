@@ -1,0 +1,602 @@
+version: '2.2'
+services:
+    sharelatex:
+        restart: always
+        image: microsharelatex/nginx_real:2.2.0
+        container_name: microsharelatex1_sharelatex
+        depends_on:
+            mongo:
+                condition: service_healthy
+            redis:
+                condition: service_started
+            documentupdater:
+                condition: service_started
+            web:
+                condition: service_started
+            clsi:
+                condition: service_started
+            filestore:
+                condition: service_started
+            docstore:
+                condition: service_started
+            chat:
+                condition: service_started
+            spelling:
+                condition: service_started
+            tags:
+                condition: service_started
+            notifications:
+                condition: service_started
+            contacts:
+                condition: service_started
+            trackchanges:
+                condition: service_started
+        privileged: true
+        ports:
+            # - 3000:3000
+            # - 3003:3003
+            - 3026:3026
+            - 8002:80
+        links:
+            - mongo
+            - redis
+            - documentupdater
+            - web
+            - clsi
+            - chat
+            - docstore
+            - filestore
+            - spelling
+            - tags
+            - notifications
+            - contacts
+            - trackchanges
+        volumes:
+            - ~/.tmp/vol1/nginx_log:/var/log/nginx
+            - ~/.tmp/vol1/sharelatex_log:/var/log/sharelatex
+            - /var/run/docker.sock:/var/run/docker.sock
+        environment:
+            SHARELATEX_APP_NAME: Overleaf Community Edition
+          
+            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+            MONGO_HOST: mongo
+          
+            # Same property, unfortunately with different names in
+            # different locations
+            SHARELATEX_REDIS_HOST: redis
+            REDIS_HOST: redis
+            WEB_HOST: web
+            TAGS_HOST: tags
+            CLSI_HOST: clsi
+            CHAT_HOST: chat
+            DOCSTORE_HOST: docstore
+            SPELLING_HOST: spelling
+            FILESTORE_HOST: filestore
+            DOCUMENT_UPDATER_HOST: documentupdater
+            NOTIFICATIONS_HOST: notifications
+            CONTACTS_HOST: contacts
+            LISTEN_ADDRESS: 0.0.0.0
+            ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+            REALTIME_HOST: sharelatex
+            TRACK_CHANGES_HOST: trackchanges
+            ENABLE_CONVERSIONS: 'true'
+            WEB_API_USER: 'sharelatex'
+            WEB_API_HOST: web
+            WEB_API_PASSWORD: 'rAp8aFvtk77m20PG6Kedzt3iOOrWKJ3pL5eiaQsP6s'
+            SESSION_SECRET: 'K1pOaUSsFIoXADLUIgtIh4toKBzgoZS1vHRXNySWQc'
+            SHARELATEX_SESSION_SECRET: 'K1pOaUSsFIoXADLUIgtIh4toKBzgoZS1vHRXNySWQc'
+    web:
+        restart: always
+        image: microsharelatex/web:2.2.0
+        container_name: microsharelatex1_web
+        depends_on:
+          mongo:
+              condition: service_healthy
+          redis:
+              condition: service_started
+        privileged: true
+        ports:
+            - 3000:3000
+        links:
+            - mongo
+            - redis
+        volumes:
+            - ~/.tmp/vol1/web_data:/var/lib/sharelatex
+            - ~/.tmp/vol1/web_logs:/var/log/sharelatex
+        environment:
+            SHARELATEX_APP_NAME: Overleaf Community Edition
+          
+            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+            MONGO_HOST: mongo
+          
+            # Same property, unfortunately with different names in
+            # different locations
+            SHARELATEX_REDIS_HOST: redis
+            REDIS_HOST: redis
+            CLSI_HOST: clsi
+            TAGS_HOST: tags
+            CHAT_HOST: chat
+            SPELLING_HOST: spelling
+            NOTIFICATIONS_HOST: notifications
+            DOCUMENT_UPDATER_HOST: documentupdater
+            WEB_HOST: web
+            DOCSTORE_HOST: docstore
+            LISTEN_ADDRESS: 0.0.0.0
+            CONTACTS_HOST: contacts
+            FILESTORE_HOST: filestore
+            ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+            TRACK_CHANGES_HOST: trackchanges
+            ENABLE_CONVERSIONS: 'true'
+            WEB_API_USER: 'sharelatex'
+            WEB_API_HOST: web
+            WEB_API_PASSWORD: 'rAp8aFvtk77m20PG6Kedzt3iOOrWKJ3pL5eiaQsP6s'
+            REALTIME_HOST: sharelatex
+            SESSION_SECRET: 'K1pOaUSsFIoXADLUIgtIh4toKBzgoZS1vHRXNySWQc'
+            SHARELATEX_SESSION_SECRET: 'K1pOaUSsFIoXADLUIgtIh4toKBzgoZS1vHRXNySWQc'
+
+
+    documentupdater:
+        restart: always
+        image: microsharelatex/document-updater:2.2.0
+        container_name: microsharelatex1_documentupdater
+        depends_on:
+          mongo:
+              condition: service_healthy
+          redis:
+              condition: service_started
+        privileged: true
+        ports:
+            - 3003:3003
+        links:
+            - mongo
+            - redis
+        volumes:
+            - ~/.tmp/vol1/documentupdater_data:/var/lib/sharelatex
+            - ~/.tmp/vol1/documentupdater_logs:/var/log/sharelatex
+        environment:
+            SHARELATEX_APP_NAME: Overleaf Community Edition
+          
+            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+            MONGO_HOST: mongo
+          
+            # Same property, unfortunately with different names in
+            # different locations
+            SHARELATEX_REDIS_HOST: redis
+            REDIS_HOST: redis
+            CLSI_HOST: clsi
+            TAGS_HOST: tags
+            CHAT_HOST: chat
+            SPELLING_HOST: spelling
+            NOTIFICATIONS_HOST: notifications
+            WEB_HOST: web
+            DOCSTORE_HOST: docstore
+            LISTEN_ADDRESS: 0.0.0.0
+            CONTACTS_HOST: contacts
+            FILESTORE_HOST: filestore
+            ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+            TRACK_CHANGES_HOST: trackchanges
+            ENABLE_CONVERSIONS: 'true'
+            WEB_API_USER: 'sharelatex'
+            WEB_API_HOST: web
+            WEB_API_PASSWORD: 'rAp8aFvtk77m20PG6Kedzt3iOOrWKJ3pL5eiaQsP6s'
+
+    clsi:
+        restart: always
+        image: microsharelatex/clsi:2.2.0
+        container_name: microsharelatex1_clsi
+        depends_on:
+          mongo:
+              condition: service_healthy
+          redis:
+              condition: service_started
+        privileged: true
+        ports:
+            - 3013:3013
+        links:
+            - mongo
+            - redis
+        volumes:
+            - ~/.tmp/vol1/clsi_data:/var/lib/sharelatex
+            - ~/.tmp/vol1/clsi_logs:/var/log/sharelatex
+        environment:
+            SHARELATEX_APP_NAME: Overleaf Community Edition
+          
+            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+            MONGO_HOST: mongo
+          
+            # Same property, unfortunately with different names in
+            # different locations
+            SHARELATEX_REDIS_HOST: redis
+            REDIS_HOST: redis
+            CLSI_HOST: clsi
+            TAGS_HOST: tags
+            CHAT_HOST: chat
+            SPELLING_HOST: spelling
+            NOTIFICATIONS_HOST: notifications
+            WEB_HOST: web
+            DOCSTORE_HOST: docstore
+            LISTEN_ADDRESS: 0.0.0.0
+            DOCUMENT_UPDATER_HOST: documentupdater
+            CONTACTS_HOST: contacts
+            FILESTORE_HOST: filestore
+            ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+            TRACK_CHANGES_HOST: trackchanges
+            ENABLE_CONVERSIONS: 'true'
+
+    filestore:
+        restart: always
+        image: microsharelatex/filestore:2.2.0
+        container_name: microsharelatex1_filestore
+        depends_on:
+          mongo:
+              condition: service_healthy
+          redis:
+              condition: service_started
+          clsi:
+                condition: service_started
+        privileged: true
+        ports:
+            - 3009:3009
+        links:
+            - mongo
+            - redis
+        volumes:
+            - ~/.tmp/vol1/filestore_logs:/var/log/sharelatex
+            - ~/.tmp/vol1/filestore_data:/var/lib/sharelatex
+        environment:
+            SHARELATEX_APP_NAME: Overleaf Community Edition
+          
+            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+            MONGO_HOST: mongo
+          
+            # Same property, unfortunately with different names in
+            # different locations
+            SHARELATEX_REDIS_HOST: redis
+            REDIS_HOST: redis
+            TAGS_HOST: tags
+            CLSI_HOST: clsi
+            CHAT_HOST: chat
+            DOCSTORE_HOST: docstore
+            SPELLING_HOST: spelling
+            LISTEN_ADDRESS: 0.0.0.0
+            NOTIFICATIONS_HOST: notifications
+            CONTACTS_HOST: contacts
+            WEB_HOST: web
+            FILESTORE_HOST: filestore
+            DOCUMENT_UPDATER_HOST: documentupdater
+            ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+            ENABLE_CONVERSIONS: 'true'
+            TRACK_CHANGES_HOST: trackchanges
+
+    docstore:
+        restart: always
+        image: microsharelatex/docstore:2.2.0
+        container_name: microsharelatex1_docstore
+        depends_on:
+          mongo:
+              condition: service_healthy
+          redis:
+              condition: service_started
+        privileged: true
+        ports:
+            - 3016:3016
+        links:
+            - mongo
+            - redis
+        volumes:
+            - ~/.tmp/vol1/docstore_data:/var/lib/sharelatex
+        environment:
+            SHARELATEX_APP_NAME: Overleaf Community Edition
+          
+            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+            MONGO_HOST: mongo
+          
+            # Same property, unfortunately with different names in
+            # different locations
+            SHARELATEX_REDIS_HOST: redis
+            REDIS_HOST: redis
+            CLSI_HOST: clsi
+            SPELLING_HOST: spelling
+            TAGS_HOST: tags
+            CHAT_HOST: chat
+            DOCSTORE_HOST: docstore
+            LISTEN_ADDRESS: 0.0.0.0
+            NOTIFICATIONS_HOST: notifications
+            WEB_HOST: web
+            DOCUMENT_UPDATER_HOST: documentupdater
+            CONTACTS_HOST: contacts
+            FILESTORE_HOST: filestore
+            ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+            ENABLE_CONVERSIONS: 'true'
+            TRACK_CHANGES_HOST: trackchanges
+
+    chat:
+        restart: always
+        image: microsharelatex/chat:2.2.0
+        container_name: microsharelatex1_chat
+        depends_on:
+          mongo:
+              condition: service_healthy
+          redis:
+              condition: service_started
+        privileged: true
+        ports:
+            - 3010:3010
+        links:
+            - mongo
+            - redis
+        volumes:
+            - ~/.tmp/vol1/chat_logs:/var/log/sharelatex
+        environment:
+            SHARELATEX_APP_NAME: Overleaf Community Edition
+          
+            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+            MONGO_HOST: mongo
+          
+            # Same property, unfortunately with different names in
+            # different locations
+            SHARELATEX_REDIS_HOST: redis
+            REDIS_HOST: redis
+            CLSI_HOST: clsi
+            SPELLING_HOST: spelling
+            CHAT_HOST: chat
+            DOCSTORE_HOST: docstore
+            TAGS_HOST: tags
+            NOTIFICATIONS_HOST: notifications
+            WEB_HOST: web
+            LISTEN_ADDRESS: 0.0.0.0
+            DOCUMENT_UPDATER_HOST: documentupdater
+            CONTACTS_HOST: contacts
+            FILESTORE_HOST: filestore
+            ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+            TRACK_CHANGES_HOST: trackchanges
+            ENABLE_CONVERSIONS: 'true'
+
+    spelling:
+        restart: always
+        image: microsharelatex/spelling:2.2.0
+        container_name: microsharelatex1_spelling
+        depends_on:
+          mongo:
+              condition: service_healthy
+          redis:
+              condition: service_started
+        privileged: true
+        ports:
+            - 3005:3005
+        links:
+            - mongo
+            - redis
+        volumes:
+            - ~/.tmp/vol1/spelling_logs:/var/log/sharelatex
+        environment:
+            SHARELATEX_APP_NAME: Overleaf Community Edition
+          
+            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+            MONGO_HOST: mongo
+          
+            # Same property, unfortunately with different names in
+            # different locations
+            SHARELATEX_REDIS_HOST: redis
+            REDIS_HOST: redis
+            CLSI_HOST: clsi
+            CHAT_HOST: chat
+            DOCSTORE_HOST: docstore
+            SPELLING_HOST: spelling
+            TAGS_HOST: tags
+            WEB_HOST: web
+            NOTIFICATIONS_HOST: notifications
+            LISTEN_ADDRESS: 0.0.0.0
+            DOCUMENT_UPDATER_HOST: documentupdater
+            CONTACTS_HOST: contacts
+            FILESTORE_HOST: filestore
+            ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+            ENABLE_CONVERSIONS: 'true'
+            TRACK_CHANGES_HOST: trackchanges
+
+
+    notifications:
+        restart: always
+        image: microsharelatex/notifications:2.2.0
+        container_name: microsharelatex1_notifications
+        depends_on:
+          mongo:
+              condition: service_healthy
+          redis:
+              condition: service_started
+        privileged: true
+        ports:
+            - 3042:3042
+        links:
+            - mongo
+            - redis
+        volumes:
+            - ~/.tmp/vol1/notifications_logs:/var/log/sharelatex
+        environment:
+            SHARELATEX_APP_NAME: Overleaf Community Edition
+          
+            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+            MONGO_HOST: mongo
+          
+            # Same property, unfortunately with different names in
+            # different locations
+            SHARELATEX_REDIS_HOST: redis
+            REDIS_HOST: redis
+            CLSI_HOST: clsi
+            CHAT_HOST: chat
+            DOCSTORE_HOST: docstore
+            SPELLING_HOST: spelling
+            WEB_HOST: web
+            LISTEN_ADDRESS: 0.0.0.0
+            TAGS_HOST: tags
+            NOTIFICATIONS_HOST: notifications
+            DOCUMENT_UPDATER_HOST: documentupdater
+            CONTACTS_HOST: contacts
+            FILESTORE_HOST: filestore
+            ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+            TRACK_CHANGES_HOST: trackchanges
+            ENABLE_CONVERSIONS: 'true'
+
+    tags:
+        restart: always
+        image: microsharelatex/tags:2.2.0
+        container_name: microsharelatex1_tags
+        depends_on:
+          mongo:
+              condition: service_healthy
+          redis:
+              condition: service_started
+        privileged: true
+        ports:
+            - 3012:3012
+        links:
+            - mongo
+            - redis
+        volumes:
+            - ~/.tmp/vol1/tags_logs:/var/log/sharelatex
+        environment:
+            SHARELATEX_APP_NAME: Overleaf Community Edition
+          
+            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+            MONGO_HOST: mongo
+          
+            # Same property, unfortunately with different names in
+            # different locations
+            SHARELATEX_REDIS_HOST: redis
+            REDIS_HOST: redis
+            CLSI_HOST: clsi
+            CHAT_HOST: chat
+            DOCSTORE_HOST: docstore
+            SPELLING_HOST: spelling
+            DOCUMENT_UPDATER_HOST: documentupdater
+            WEB_HOST: web
+            NOTIFICATIONS_HOST: notifications
+            LISTEN_ADDRESS: 0.0.0.0
+            CONTACTS_HOST: contacts
+            TAGS_HOST: tags
+            FILESTORE_HOST: filestore
+            ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+            ENABLE_CONVERSIONS: 'true'
+            TRACK_CHANGES_HOST: trackchanges
+
+           
+    contacts:
+        restart: always
+        image: microsharelatex/contacts:2.2.0
+        container_name: microsharelatex1_contacts
+        depends_on:
+          mongo:
+              condition: service_healthy
+          redis:
+              condition: service_started
+        privileged: true
+        ports:
+            - 3036:3036
+        links:
+            - mongo
+            - redis
+        volumes:
+            - ~/.tmp/vol1/contacts_data:/var/lib/sharelatex
+            - ~/.tmp/vol1/contacts_logs:/var/log/sharelatex
+        environment:
+            SHARELATEX_APP_NAME: Overleaf Community Edition
+          
+            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+            MONGO_HOST: mongo
+          
+            # Same property, unfortunately with different names in
+            # different locations
+            SHARELATEX_REDIS_HOST: redis
+            REDIS_HOST: redis
+            CLSI_HOST: clsi
+            CHAT_HOST: chat
+            DOCSTORE_HOST: docstore
+            SPELLING_HOST: spelling
+            WEB_HOST: web
+            NOTIFICATIONS_HOST: notifications
+            LISTEN_ADDRESS: 0.0.0.0
+            CONTACTS_HOST: contacts
+            TAGS_HOST: tags
+            DOCUMENT_UPDATER_HOST: documentupdater
+            FILESTORE_HOST: filestore
+            ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+            ENABLE_CONVERSIONS: 'true'
+            TRACK_CHANGES_HOST: trackchanges
+ 
+
+
+    trackchanges:
+        restart: always
+        image: microsharelatex/track-changes:2.2.0
+        container_name: microsharelatex1_trackchanges
+        depends_on:
+          mongo:
+              condition: service_healthy
+          redis:
+              condition: service_started
+        privileged: true
+        ports:
+            - 3015:3015
+        links:
+            - mongo
+            - redis
+        volumes:
+            - ~/.tmp/vol1/trackchanges_data:/var/lib/sharelatex
+            - ~/.tmp/vol1/trackchanges_logs:/var/log/sharelatex
+        environment:
+            SHARELATEX_APP_NAME: Overleaf Community Edition
+          
+            SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+            MONGO_HOST: mongo
+          
+            # Same property, unfortunately with different names in
+            # different locations
+            SHARELATEX_REDIS_HOST: redis
+            REDIS_HOST: redis
+            CLSI_HOST: clsi
+            CHAT_HOST: chat
+            DOCSTORE_HOST: docstore
+            SPELLING_HOST: spelling
+            WEB_HOST: web
+            NOTIFICATIONS_HOST: notifications
+            LISTEN_ADDRESS: 0.0.0.0
+            CONTACTS_HOST: contacts
+            TAGS_HOST: tags
+            FILESTORE_HOST: filestore
+            DOCUMENT_UPDATER_HOST: documentupdater
+            ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+            ENABLE_CONVERSIONS: 'true'
+            REALTIME_HOST: sharelatex
+            TRACK_CHANGES_HOST: trackchanges
+            WEB_API_USER: 'sharelatex'
+            WEB_API_HOST: web
+            WEB_API_PASSWORD: 'rAp8aFvtk77m20PG6Kedzt3iOOrWKJ3pL5eiaQsP6s'
+            REALTIME_HOST: sharelatex
+            SESSION_SECRET: 'K1pOaUSsFIoXADLUIgtIh4toKBzgoZS1vHRXNySWQc'
+            SHARELATEX_SESSION_SECRET: 'K1pOaUSsFIoXADLUIgtIh4toKBzgoZS1vHRXNySWQc'
+
+
+    mongo:
+        restart: "no"
+        image: mongo
+        container_name: microsharelatex1_mongo
+        expose:
+            - 27017
+        volumes:
+            - ~/.tmp/vol1/mongo_data:/data/db
+        healthcheck:
+            test: echo 'db.stats().ok' | mongo localhost:27017/test --quiet
+            interval: 10s
+            timeout: 10s
+            retries: 5
+
+    redis:
+        restart: always
+        image: redis
+        container_name: microsharelatex1_redis
+        expose:
+            - 6379
+        volumes:
+            - ~/.tmp/vol1/redis_data:/data
+    
+    

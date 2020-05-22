@@ -8,8 +8,11 @@ FROM sharelatex/sharelatex:2.2.0
 ENV baseDir .
 
 RUN cd /etc/service && rm -rf chat-sharelatex clsi-sharelatex contacts-sharelatex docstore-sharelatex filestore-sharelatex notifications-sharelatex spelling-sharelatex tags-sharelatex track-changes-sharelatex 
-# RUN cd /etc/service && rm -rf document-updater-sharelatex
+RUN cd /etc/service && rm -rf document-updater-sharelatex
+RUN cd /etc/service && rm -rf web*
 
-# COPY ${baseDir}/nginx.conf /etc/nginx/sites-enabled/sharelatex.conf
+# COPY ${baseDir}/web/settings.defaults.coffee /var/www/sharelatex/web/config/settings.defaults.coffee
+COPY ${baseDir}/settings.coffee /etc/sharelatex/settings.coffee
+COPY ${baseDir}/nginx.conf /etc/nginx/sites-enabled/sharelatex.conf 
 
 EXPOSE 80

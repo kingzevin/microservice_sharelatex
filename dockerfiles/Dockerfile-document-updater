@@ -9,9 +9,7 @@ ENV baseDir .
 
 RUN cd /etc/service && mv document-updater-sharelatex .document-updater-sharelatex  && rm -rf *-sharelatex && rm -rf nginx && mv .document-updater-sharelatex document-updater-sharelatex
 
+# COPY ${baseDir}/settings.defaults.coffee /var/www/sharelatex/document-updater/config/settings.defaults.coffee
+COPY ${baseDir}/settings.coffee /etc/sharelatex/settings.coffee
+
 EXPOSE 3003
-
-WORKDIR /
-
-ENTRYPOINT ["/sbin/my_init"]
-

@@ -580,8 +580,9 @@ services:
         restart: "no"
         image: mongo
         container_name: microsharelatex1_mongo
-        expose:
-            - 27017
+        # expose:
+        ports:
+            - 27017:27017
         volumes:
             - ~/.tmp/vol1/mongo_data:/data/db
         healthcheck:
@@ -594,8 +595,9 @@ services:
         restart: always
         image: redis
         container_name: microsharelatex1_redis
-        expose:
-            - 6379
+        # expose:
+        ports:
+            - 6379:6379
         volumes:
             - ~/.tmp/vol1/redis_data:/data
     

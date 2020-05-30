@@ -36,7 +36,9 @@ services:
             # - 3000:3000
             # - 3003:3003
             - 3026:3026
-            - 8002:80
+            - 9002:80 # normal
+            - 9000:9000 # web - node
+            - 9443:443 # serverless - ssl
         links:
             - mongo
             - redis
@@ -65,23 +67,23 @@ services:
             # different locations
             SHARELATEX_REDIS_HOST: redis
             REDIS_HOST: redis
-            WEB_HOST: web
-            TAGS_HOST: tags
-            CLSI_HOST: clsi
-            CHAT_HOST: chat
-            DOCSTORE_HOST: docstore
-            SPELLING_HOST: spelling
-            FILESTORE_HOST: filestore
-            DOCUMENT_UPDATER_HOST: documentupdater
-            NOTIFICATIONS_HOST: notifications
-            CONTACTS_HOST: contacts
+            WEB_HOST: 172.17.0.1
+            TAGS_HOST: 172.17.0.1
+            CLSI_HOST: 172.17.0.1
+            CHAT_HOST: 172.17.0.1
+            DOCSTORE_HOST: 172.17.0.1
+            SPELLING_HOST: 172.17.0.1
+            FILESTORE_HOST: 172.17.0.1
+            DOCUMENT_UPDATER_HOST: 172.17.0.1
+            NOTIFICATIONS_HOST: 172.17.0.1
+            CONTACTS_HOST: 172.17.0.1
             LISTEN_ADDRESS: 0.0.0.0
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
-            REALTIME_HOST: sharelatex
-            TRACK_CHANGES_HOST: trackchanges
+            REALTIME_HOST: 172.17.0.1
+            TRACK_CHANGES_HOST: 172.17.0.1
             ENABLE_CONVERSIONS: 'true'
             WEB_API_USER: 'sharelatex'
-            WEB_API_HOST: web
+            WEB_API_HOST: 172.17.0.1
             WEB_API_PASSWORD: 'rAp8aFvtk77m20PG6Kedzt3iOOrWKJ3pL5eiaQsP6s'
             SESSION_SECRET: 'K1pOaUSsFIoXADLUIgtIh4toKBzgoZS1vHRXNySWQc'
             SHARELATEX_SESSION_SECRET: 'K1pOaUSsFIoXADLUIgtIh4toKBzgoZS1vHRXNySWQc'
@@ -113,24 +115,24 @@ services:
             # different locations
             SHARELATEX_REDIS_HOST: redis
             REDIS_HOST: redis
-            CLSI_HOST: clsi
-            TAGS_HOST: tags
-            CHAT_HOST: chat
-            SPELLING_HOST: spelling
-            NOTIFICATIONS_HOST: notifications
-            DOCUMENT_UPDATER_HOST: documentupdater
-            WEB_HOST: web
-            DOCSTORE_HOST: docstore
+            CLSI_HOST: 172.17.0.1
+            TAGS_HOST: 172.17.0.1
+            CHAT_HOST: 172.17.0.1
+            SPELLING_HOST: 172.17.0.1
+            NOTIFICATIONS_HOST: 172.17.0.1
+            DOCUMENT_UPDATER_HOST: 172.17.0.1
+            WEB_HOST: 172.17.0.1
+            DOCSTORE_HOST: 172.17.0.1
             LISTEN_ADDRESS: 0.0.0.0
-            CONTACTS_HOST: contacts
-            FILESTORE_HOST: filestore
+            CONTACTS_HOST: 172.17.0.1
+            FILESTORE_HOST: 172.17.0.1
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
-            TRACK_CHANGES_HOST: trackchanges
+            TRACK_CHANGES_HOST: 172.17.0.1
             ENABLE_CONVERSIONS: 'true'
             WEB_API_USER: 'sharelatex'
-            WEB_API_HOST: web
+            WEB_API_HOST: 172.17.0.1
             WEB_API_PASSWORD: 'rAp8aFvtk77m20PG6Kedzt3iOOrWKJ3pL5eiaQsP6s'
-            REALTIME_HOST: sharelatex
+            REALTIME_HOST: 172.17.0.1
             SESSION_SECRET: 'K1pOaUSsFIoXADLUIgtIh4toKBzgoZS1vHRXNySWQc'
             SHARELATEX_SESSION_SECRET: 'K1pOaUSsFIoXADLUIgtIh4toKBzgoZS1vHRXNySWQc'
 
@@ -163,21 +165,21 @@ services:
             # different locations
             SHARELATEX_REDIS_HOST: redis
             REDIS_HOST: redis
-            CLSI_HOST: clsi
-            TAGS_HOST: tags
-            CHAT_HOST: chat
-            SPELLING_HOST: spelling
-            NOTIFICATIONS_HOST: notifications
-            WEB_HOST: web
-            DOCSTORE_HOST: docstore
+            CLSI_HOST: 172.17.0.1
+            TAGS_HOST: 172.17.0.1
+            CHAT_HOST: 172.17.0.1
+            SPELLING_HOST: 172.17.0.1
+            NOTIFICATIONS_HOST: 172.17.0.1
+            WEB_HOST: 172.17.0.1
+            DOCSTORE_HOST: 172.17.0.1
             LISTEN_ADDRESS: 0.0.0.0
-            CONTACTS_HOST: contacts
-            FILESTORE_HOST: filestore
+            CONTACTS_HOST: 172.17.0.1
+            FILESTORE_HOST: 172.17.0.1
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
-            TRACK_CHANGES_HOST: trackchanges
+            TRACK_CHANGES_HOST: 172.17.0.1
             ENABLE_CONVERSIONS: 'true'
             WEB_API_USER: 'sharelatex'
-            WEB_API_HOST: web
+            WEB_API_HOST: 172.17.0.1
             WEB_API_PASSWORD: 'rAp8aFvtk77m20PG6Kedzt3iOOrWKJ3pL5eiaQsP6s'
 
     clsi:
@@ -208,19 +210,19 @@ services:
             # different locations
             SHARELATEX_REDIS_HOST: redis
             REDIS_HOST: redis
-            CLSI_HOST: clsi
-            TAGS_HOST: tags
-            CHAT_HOST: chat
-            SPELLING_HOST: spelling
-            NOTIFICATIONS_HOST: notifications
-            WEB_HOST: web
-            DOCSTORE_HOST: docstore
+            CLSI_HOST: 172.17.0.1
+            TAGS_HOST: 172.17.0.1
+            CHAT_HOST: 172.17.0.1
+            SPELLING_HOST: 172.17.0.1
+            NOTIFICATIONS_HOST: 172.17.0.1
+            WEB_HOST: 172.17.0.1
+            DOCSTORE_HOST: 172.17.0.1
             LISTEN_ADDRESS: 0.0.0.0
-            DOCUMENT_UPDATER_HOST: documentupdater
-            CONTACTS_HOST: contacts
-            FILESTORE_HOST: filestore
+            DOCUMENT_UPDATER_HOST: 172.17.0.1
+            CONTACTS_HOST: 172.17.0.1
+            FILESTORE_HOST: 172.17.0.1
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
-            TRACK_CHANGES_HOST: trackchanges
+            TRACK_CHANGES_HOST: 172.17.0.1
             ENABLE_CONVERSIONS: 'true'
 
     filestore:
@@ -253,20 +255,20 @@ services:
             # different locations
             SHARELATEX_REDIS_HOST: redis
             REDIS_HOST: redis
-            TAGS_HOST: tags
-            CLSI_HOST: clsi
-            CHAT_HOST: chat
-            DOCSTORE_HOST: docstore
-            SPELLING_HOST: spelling
+            TAGS_HOST: 172.17.0.1
+            CLSI_HOST: 172.17.0.1
+            CHAT_HOST: 172.17.0.1
+            DOCSTORE_HOST: 172.17.0.1
+            SPELLING_HOST: 172.17.0.1
             LISTEN_ADDRESS: 0.0.0.0
-            NOTIFICATIONS_HOST: notifications
-            CONTACTS_HOST: contacts
-            WEB_HOST: web
-            FILESTORE_HOST: filestore
-            DOCUMENT_UPDATER_HOST: documentupdater
+            NOTIFICATIONS_HOST: 172.17.0.1
+            CONTACTS_HOST: 172.17.0.1
+            WEB_HOST: 172.17.0.1
+            FILESTORE_HOST: 172.17.0.1
+            DOCUMENT_UPDATER_HOST: 172.17.0.1
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
-            TRACK_CHANGES_HOST: trackchanges
+            TRACK_CHANGES_HOST: 172.17.0.1
 
     docstore:
         restart: always
@@ -295,20 +297,20 @@ services:
             # different locations
             SHARELATEX_REDIS_HOST: redis
             REDIS_HOST: redis
-            CLSI_HOST: clsi
-            SPELLING_HOST: spelling
-            TAGS_HOST: tags
-            CHAT_HOST: chat
-            DOCSTORE_HOST: docstore
+            CLSI_HOST: 172.17.0.1
+            SPELLING_HOST: 172.17.0.1
+            TAGS_HOST: 172.17.0.1
+            CHAT_HOST: 172.17.0.1
+            DOCSTORE_HOST: 172.17.0.1
             LISTEN_ADDRESS: 0.0.0.0
-            NOTIFICATIONS_HOST: notifications
-            WEB_HOST: web
-            DOCUMENT_UPDATER_HOST: documentupdater
-            CONTACTS_HOST: contacts
-            FILESTORE_HOST: filestore
+            NOTIFICATIONS_HOST: 172.17.0.1
+            WEB_HOST: 172.17.0.1
+            DOCUMENT_UPDATER_HOST: 172.17.0.1
+            CONTACTS_HOST: 172.17.0.1
+            FILESTORE_HOST: 172.17.0.1
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
-            TRACK_CHANGES_HOST: trackchanges
+            TRACK_CHANGES_HOST: 172.17.0.1
 
     chat:
         restart: always
@@ -337,19 +339,19 @@ services:
             # different locations
             SHARELATEX_REDIS_HOST: redis
             REDIS_HOST: redis
-            CLSI_HOST: clsi
-            SPELLING_HOST: spelling
-            CHAT_HOST: chat
-            DOCSTORE_HOST: docstore
-            TAGS_HOST: tags
-            NOTIFICATIONS_HOST: notifications
-            WEB_HOST: web
+            CLSI_HOST: 172.17.0.1
+            SPELLING_HOST: 172.17.0.1
+            CHAT_HOST: 172.17.0.1
+            DOCSTORE_HOST: 172.17.0.1
+            TAGS_HOST: 172.17.0.1
+            NOTIFICATIONS_HOST: 172.17.0.1
+            WEB_HOST: 172.17.0.1
             LISTEN_ADDRESS: 0.0.0.0
-            DOCUMENT_UPDATER_HOST: documentupdater
-            CONTACTS_HOST: contacts
-            FILESTORE_HOST: filestore
+            DOCUMENT_UPDATER_HOST: 172.17.0.1
+            CONTACTS_HOST: 172.17.0.1
+            FILESTORE_HOST: 172.17.0.1
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
-            TRACK_CHANGES_HOST: trackchanges
+            TRACK_CHANGES_HOST: 172.17.0.1
             ENABLE_CONVERSIONS: 'true'
 
     spelling:
@@ -379,20 +381,20 @@ services:
             # different locations
             SHARELATEX_REDIS_HOST: redis
             REDIS_HOST: redis
-            CLSI_HOST: clsi
-            CHAT_HOST: chat
-            DOCSTORE_HOST: docstore
-            SPELLING_HOST: spelling
-            TAGS_HOST: tags
-            WEB_HOST: web
-            NOTIFICATIONS_HOST: notifications
+            CLSI_HOST: 172.17.0.1
+            CHAT_HOST: 172.17.0.1
+            DOCSTORE_HOST: 172.17.0.1
+            SPELLING_HOST: 172.17.0.1
+            TAGS_HOST: 172.17.0.1
+            WEB_HOST: 172.17.0.1
+            NOTIFICATIONS_HOST: 172.17.0.1
             LISTEN_ADDRESS: 0.0.0.0
-            DOCUMENT_UPDATER_HOST: documentupdater
-            CONTACTS_HOST: contacts
-            FILESTORE_HOST: filestore
+            DOCUMENT_UPDATER_HOST: 172.17.0.1
+            CONTACTS_HOST: 172.17.0.1
+            FILESTORE_HOST: 172.17.0.1
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
-            TRACK_CHANGES_HOST: trackchanges
+            TRACK_CHANGES_HOST: 172.17.0.1
 
 
     notifications:
@@ -422,19 +424,19 @@ services:
             # different locations
             SHARELATEX_REDIS_HOST: redis
             REDIS_HOST: redis
-            CLSI_HOST: clsi
-            CHAT_HOST: chat
-            DOCSTORE_HOST: docstore
-            SPELLING_HOST: spelling
-            WEB_HOST: web
+            CLSI_HOST: 172.17.0.1
+            CHAT_HOST: 172.17.0.1
+            DOCSTORE_HOST: 172.17.0.1
+            SPELLING_HOST: 172.17.0.1
+            WEB_HOST: 172.17.0.1
             LISTEN_ADDRESS: 0.0.0.0
-            TAGS_HOST: tags
-            NOTIFICATIONS_HOST: notifications
-            DOCUMENT_UPDATER_HOST: documentupdater
-            CONTACTS_HOST: contacts
-            FILESTORE_HOST: filestore
+            TAGS_HOST: 172.17.0.1
+            NOTIFICATIONS_HOST: 172.17.0.1
+            DOCUMENT_UPDATER_HOST: 172.17.0.1
+            CONTACTS_HOST: 172.17.0.1
+            FILESTORE_HOST: 172.17.0.1
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
-            TRACK_CHANGES_HOST: trackchanges
+            TRACK_CHANGES_HOST: 172.17.0.1
             ENABLE_CONVERSIONS: 'true'
 
     tags:
@@ -464,20 +466,20 @@ services:
             # different locations
             SHARELATEX_REDIS_HOST: redis
             REDIS_HOST: redis
-            CLSI_HOST: clsi
-            CHAT_HOST: chat
-            DOCSTORE_HOST: docstore
-            SPELLING_HOST: spelling
-            DOCUMENT_UPDATER_HOST: documentupdater
-            WEB_HOST: web
-            NOTIFICATIONS_HOST: notifications
+            CLSI_HOST: 172.17.0.1
+            CHAT_HOST: 172.17.0.1
+            DOCSTORE_HOST: 172.17.0.1
+            SPELLING_HOST: 172.17.0.1
+            DOCUMENT_UPDATER_HOST: 172.17.0.1
+            WEB_HOST: 172.17.0.1
+            NOTIFICATIONS_HOST: 172.17.0.1
             LISTEN_ADDRESS: 0.0.0.0
-            CONTACTS_HOST: contacts
-            TAGS_HOST: tags
-            FILESTORE_HOST: filestore
+            CONTACTS_HOST: 172.17.0.1
+            TAGS_HOST: 172.17.0.1
+            FILESTORE_HOST: 172.17.0.1
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
-            TRACK_CHANGES_HOST: trackchanges
+            TRACK_CHANGES_HOST: 172.17.0.1
 
            
     contacts:
@@ -508,20 +510,20 @@ services:
             # different locations
             SHARELATEX_REDIS_HOST: redis
             REDIS_HOST: redis
-            CLSI_HOST: clsi
-            CHAT_HOST: chat
-            DOCSTORE_HOST: docstore
-            SPELLING_HOST: spelling
-            WEB_HOST: web
-            NOTIFICATIONS_HOST: notifications
+            CLSI_HOST: 172.17.0.1
+            CHAT_HOST: 172.17.0.1
+            DOCSTORE_HOST: 172.17.0.1
+            SPELLING_HOST: 172.17.0.1
+            WEB_HOST: 172.17.0.1
+            NOTIFICATIONS_HOST: 172.17.0.1
             LISTEN_ADDRESS: 0.0.0.0
-            CONTACTS_HOST: contacts
-            TAGS_HOST: tags
-            DOCUMENT_UPDATER_HOST: documentupdater
-            FILESTORE_HOST: filestore
+            CONTACTS_HOST: 172.17.0.1
+            TAGS_HOST: 172.17.0.1
+            DOCUMENT_UPDATER_HOST: 172.17.0.1
+            FILESTORE_HOST: 172.17.0.1
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
-            TRACK_CHANGES_HOST: trackchanges
+            TRACK_CHANGES_HOST: 172.17.0.1
  
 
 
@@ -553,25 +555,25 @@ services:
             # different locations
             SHARELATEX_REDIS_HOST: redis
             REDIS_HOST: redis
-            CLSI_HOST: clsi
-            CHAT_HOST: chat
-            DOCSTORE_HOST: docstore
-            SPELLING_HOST: spelling
-            WEB_HOST: web
-            NOTIFICATIONS_HOST: notifications
+            CLSI_HOST: 172.17.0.1
+            CHAT_HOST: 172.17.0.1
+            DOCSTORE_HOST: 172.17.0.1
+            SPELLING_HOST: 172.17.0.1
+            WEB_HOST: 172.17.0.1
+            NOTIFICATIONS_HOST: 172.17.0.1
             LISTEN_ADDRESS: 0.0.0.0
-            CONTACTS_HOST: contacts
-            TAGS_HOST: tags
-            FILESTORE_HOST: filestore
-            DOCUMENT_UPDATER_HOST: documentupdater
+            CONTACTS_HOST: 172.17.0.1
+            TAGS_HOST: 172.17.0.1
+            FILESTORE_HOST: 172.17.0.1
+            DOCUMENT_UPDATER_HOST: 172.17.0.1
             ENABLED_LINKED_FILE_TYPES: 'url,project_file'
             ENABLE_CONVERSIONS: 'true'
-            REALTIME_HOST: sharelatex
-            TRACK_CHANGES_HOST: trackchanges
+            REALTIME_HOST: 172.17.0.1
+            TRACK_CHANGES_HOST: 172.17.0.1
             WEB_API_USER: 'sharelatex'
-            WEB_API_HOST: web
+            WEB_API_HOST: 172.17.0.1
             WEB_API_PASSWORD: 'rAp8aFvtk77m20PG6Kedzt3iOOrWKJ3pL5eiaQsP6s'
-            REALTIME_HOST: sharelatex
+            REALTIME_HOST: 172.17.0.1
             SESSION_SECRET: 'K1pOaUSsFIoXADLUIgtIh4toKBzgoZS1vHRXNySWQc'
             SHARELATEX_SESSION_SECRET: 'K1pOaUSsFIoXADLUIgtIh4toKBzgoZS1vHRXNySWQc'
 

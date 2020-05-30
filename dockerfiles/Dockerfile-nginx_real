@@ -14,5 +14,6 @@ RUN cd /etc/service && rm -rf web*
 # COPY ${baseDir}/web/settings.defaults.coffee /var/www/sharelatex/web/config/settings.defaults.coffee
 COPY ${baseDir}/settings.coffee /etc/sharelatex/settings.coffee
 COPY ${baseDir}/nginx.conf /etc/nginx/sites-enabled/sharelatex.conf 
-
-EXPOSE 80
+COPY ${baseDir}/openwhisk-client-ca-cert.pem /etc/nginx/openwhisk-client-ca-cert.pem 
+COPY ${baseDir}/openwhisk-server-cert.pem /etc/nginx/sites-enabled/sharelatex.conf 
+COPY ${baseDir}/openwhisk-server-key.pem /etc/nginx/openwhisk-server-key.pem

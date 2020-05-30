@@ -37,7 +37,7 @@ services:
             # - 3003:3003
             - 3026:3026
             - 9002:80 # normal
-            - 9000:9000 # web - node
+            - 9001:9000 # web - node
             - 9443:443 # serverless - ssl
         links:
             - mongo
